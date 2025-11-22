@@ -4,7 +4,7 @@ import Link from "next/link"
 import { Navigation } from "@/components/navigation"
 import { Button } from "@/components/ui/button"
 import { ChevronLeft } from "lucide-react"
-import { DECKS_DATA, CARDS_DATA } from "@/lib/data"
+import { DECKS_DATA, CARDS_DATA, SKILLS_DATA } from "@/lib/data"
 import { useParams } from "next/navigation"
 
 export default function DeckDetailPage() {
@@ -24,10 +24,12 @@ export default function DeckDetailPage() {
     )
   }
 
-  // --- HELPER FUNCTION: Cari data kartu berdasarkan Nama ---
   const getCardByName = (name: string) => {
     return CARDS_DATA.find((c) => c.name === name)
   }
+
+  const skillData = SKILLS_DATA.find((s) => s.name === deck.skill)
+  const skillImageSrc = deck.skillType === "Universal" ? "/Skill_Uni.png" : "/Skill.png"
 
   const tierColors = {
     S: "bg-red-500/20 text-red-400 border-red-500/50",
@@ -40,13 +42,11 @@ export default function DeckDetailPage() {
     <main className="min-h-screen bg-background pb-32">
       <div className="max-w-5xl mx-auto p-4">
         
-        {/* Back Button */}
         <Link href="/decks" className="inline-flex items-center gap-2 text-primary hover:text-accent mb-6 mt-4">
           <ChevronLeft className="w-5 h-5" />
           <span>Back to Meta Decks</span>
         </Link>
 
-        {/* Deck Header */}
         <div className="space-y-4 mb-8">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
@@ -56,7 +56,6 @@ export default function DeckDetailPage() {
               </div>
             </div>
             
-            {/* Stats Grid Mini */}
             <div className="grid grid-cols-4 gap-4 text-center bg-card/50 p-3 rounded-lg border border-border">
                 <div>
                     <div className="text-xs text-muted-foreground">Win Rate</div>
@@ -81,60 +80,56 @@ export default function DeckDetailPage() {
           </p>
         </div>
 
-        {/* Skill Section */}
         {deck.skill && (
-            <div className="mt-6 flex items-center gap-3 bg-black/40 p-3 rounded-lg border border-white/10 w-fit shadow-lg backdrop-blur-sm mb-8">
-              <div className="w-10 h-10 rounded-full overflow-hidden flex items-center justify-center border border-yellow-500/50">
-                  <img 
-                      src="/Skill.png" 
-                      alt="Skill"
-                      className="w-full h-full object-cover"
-                  />
+            skillData ? (
+              <Link href={`/skill/${skillData.id}`}>
+                 <div className="mt-6 flex items-center gap-3 bg-black/40 p-3 rounded-lg border border-white/10 w-fit shadow-lg backdrop-blur-sm mb-8 cursor-pointer hover:border-blue-400 transition-all hover:scale-105 group">
+                    <div className="w-10 h-10 rounded-full overflow-hidden flex items-center justify-center border border-yellow-500/50 group-hover:border-blue-400 transition-colors">
+                        <img src={skillImageSrc} alt="Skill Type" className="w-full h-full object-cover" />
+                    </div>
+                    <div className="flex flex-col">
+                        <span className="text-[10px] uppercase tracking-wider text-muted-foreground font-bold group-hover:text-white transition-colors">
+                            {deck.skillType === "Universal" ? "Archive Skill" : "Character Skill"}
+                        </span>
+                        <span className="text-xl font-bold text-blue-400 drop-shadow-md group-hover:text-blue-300 transition-colors">
+                            {deck.skill}
+                        </span>
+                    </div>
+                 </div>
+              </Link>
+            ) : (
+              <div className="mt-6 flex items-center gap-3 bg-black/40 p-3 rounded-lg border border-white/10 w-fit shadow-lg backdrop-blur-sm mb-8 opacity-70">
+                <div className="w-10 h-10 rounded-full overflow-hidden flex items-center justify-center border border-yellow-500/50">
+                    <img src={skillImageSrc} alt="Skill Type" className="w-full h-full object-cover" />
+                </div>
+                <div className="flex flex-col">
+                    <span className="text-[10px] uppercase tracking-wider text-muted-foreground font-bold">
+                        {deck.skillType === "Universal" ? "Archive Skill" : "Character Skill"}
+                    </span>
+                    <span className="text-xl font-bold text-blue-400 drop-shadow-md">
+                        {deck.skill}
+                    </span>
+                </div>
               </div>
-              <div className="flex flex-col">
-                  <span className="text-[10px] uppercase tracking-wider text-muted-foreground font-bold">
-                      Skill
-                  </span>
-                  <span className="text-xl font-bold text-blue-400 drop-shadow-md">
-                      {deck.skill}
-                  </span>
-              </div>
-            </div>
+            )
         )}
 
-        {/* === MAIN DECK SECTION === */}
         <div className="bg-card border border-border rounded-xl overflow-hidden mb-8">
           <div className="bg-secondary/20 px-6 py-4 border-b border-border flex justify-between items-center">
             <h2 className="text-xl font-bold flex items-center gap-2">
               Main Deck <span className="text-sm font-normal text-muted-foreground">({deck.mainCards?.length || 0})</span>
             </h2>
           </div>
-          
           <div className="p-6">
             <div className="grid grid-cols-5 sm:grid-cols-4 md:grid-cols-8 lg:grid-cols-7 gap-3">
               {deck.mainCards?.map((cardName, i) => {
                 const cardData = getCardByName(cardName)
-
-                if (!cardData) {
-                    return (
-                        <div key={i} className="aspect-[2.1/3] bg-red-900/50 border border-red-500 flex items-center justify-center text-[10px] text-center p-1 truncate" title={cardName}>
-                            {cardName} (Not Found)
-                        </div>
-                    )
-                }
-
+                if (!cardData) return <div key={i} className="aspect-[2.1/3] bg-red-900/50 border border-red-500 flex items-center justify-center text-[10px] text-center p-1 truncate" title={cardName}>{cardName}</div>
                 return (
                   <Link key={i} href={`/cards/${cardData.id}`} className="group relative">
                     <div className="aspect-[2.1/3] relative rounded overflow-hidden border border-white/10 hover:border-accent transition-all hover:scale-105 hover:z-10 shadow-lg">
-                        <img 
-                            src={cardData.image || "/card-back.jpg"} 
-                            alt={cardData.name}
-                            className="w-full h-full object-cover"
-                        />
-                        {/* Rarity Badge Main Deck */}
-                        <div className="absolute top-0 right-0 bg-black/60 text-xs px-2 py-1 text-accent font-extrabold opacity-0 group-hover:opacity-100 transition-opacity z-20">
-                            {cardData.rarity}
-                        </div>
+                        <img src={cardData.image || "/card-back.jpg"} alt={cardData.name} className="w-full h-full object-cover" />
+                        <div className="absolute top-0 right-0 bg-black/60 text-xs px-2 py-1 text-accent font-extrabold opacity-0 group-hover:opacity-100 transition-opacity z-20">{cardData.rarity}</div>
                     </div>
                   </Link>
                 )
@@ -143,7 +138,6 @@ export default function DeckDetailPage() {
           </div>
         </div>
 
-        {/* === EXTRA DECK SECTION === */}
         {deck.extraCards && deck.extraCards.length > 0 && (
           <div className="bg-card border border-border rounded-xl overflow-hidden mb-8">
             <div className="bg-secondary/20 px-6 py-4 border-b border-border">
@@ -151,33 +145,16 @@ export default function DeckDetailPage() {
                 Extra Deck <span className="text-sm font-normal text-muted-foreground">({deck.extraCards.length})</span>
               </h2>
             </div>
-            
             <div className="p-6">
-              {/* Grid disamakan dengan Main Deck */}
               <div className="grid grid-cols-5 sm:grid-cols-4 md:grid-cols-8 lg:grid-cols-7 gap-3">
                 {deck.extraCards.map((cardName, i) => {
                   const cardData = getCardByName(cardName)
-
-                  if (!cardData) {
-                    return (
-                        <div key={i} className="aspect-[2.1/3] bg-red-900/50 border border-red-500 flex items-center justify-center text-[10px] text-center p-1" title={cardName}>
-                            Not Found
-                        </div>
-                    )
-                  }
-
+                  if (!cardData) return <div key={i} className="aspect-[2.1/3] bg-red-900/50 border border-red-500 flex items-center justify-center text-[10px] text-center p-1" title={cardName}>Not Found</div>
                   return (
                     <Link key={i} href={`/cards/${cardData.id}`} className="group relative">
                       <div className="aspect-[2.1/3] relative rounded overflow-hidden border border-white/10 hover:border-pink-500 transition-all hover:scale-105 hover:z-10 shadow-lg">
-                          <img 
-                              src={cardData.image || "/card-back.jpg"} 
-                              alt={cardData.name}
-                              className="w-full h-full object-cover"
-                          />
-                          {/* Rarity Badge Extra Deck (SUDAH DITAMBAHKAN) */}
-                          <div className="absolute top-0 right-0 bg-black/60 text-xs px-2 py-1 text-blue-300 font-extrabold opacity-0 group-hover:opacity-100 transition-opacity z-20">
-                            {cardData.rarity}
-                        </div>
+                          <img src={cardData.image || "/card-back.jpg"} alt={cardData.name} className="w-full h-full object-cover" />
+                          <div className="absolute top-0 right-0 bg-black/60 text-xs px-2 py-1 text-blue-300 font-extrabold opacity-0 group-hover:opacity-100 transition-opacity z-20">{cardData.rarity}</div>
                       </div>
                     </Link>
                   )
@@ -187,13 +164,41 @@ export default function DeckDetailPage() {
           </div>
         )}
 
-        {/* Strategy Section */}
         {deck.strategy && (
-          <div className="bg-card border border-border rounded-xl p-6">
-            <h2 className="text-2xl font-bold mb-4 text-accent">Strategy Guide</h2>
-            <p className="text-muted-foreground leading-relaxed whitespace-pre-line">
-                {deck.strategy}
-            </p>
+          <div className="bg-card border border-border rounded-xl p-8 mb-8 shadow-lg">
+            <h2 className="text-2xl font-bold mb-6 text-red-500 border-b border-white/10 pb-4">Strategy Guide</h2>
+            
+            <div className="space-y-3 text-muted-foreground text-lg leading-relaxed">
+                {deck.strategy.split('\n').map((line, i) => {
+                    const trimmed = line.trim();
+                    if (!trimmed) return <div key={i} className="h-1" /> 
+
+                    if (trimmed.startsWith('●') || trimmed.startsWith('-')) {
+                        return (
+                            <div key={i} className="flex gap-3 pl-4">
+                                <span className="text-green-500 font-bold text-xl">●</span>
+                                <span>{trimmed.substring(1).trim()}</span>
+                            </div>
+                        )
+                    }
+
+                    const numberMatch = trimmed.match(/^(\d+)\.\s+(.*)/);
+                    if (numberMatch) {
+                        return (
+                            <div key={i} className="flex gap-3 pl-4">
+                                <span className="text-green-500 font-bold min-w-[1.5rem]">{numberMatch[1]}.</span>
+                                <span>{numberMatch[2]}</span>
+                            </div>
+                        )
+                    }
+
+                    return (
+                        <p key={i} className="block">
+                            {line}
+                        </p>
+                    )
+                })}
+            </div>
           </div>
         )}
       </div>

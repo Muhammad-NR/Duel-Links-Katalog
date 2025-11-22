@@ -32,7 +32,6 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$utils$2e$ts__$5b$app$
 ;
 function Navigation() {
     const pathname = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["usePathname"])();
-    // Pastikan nama file icon di folder public sesuai ya
     const navItems = [
         {
             href: "/",
@@ -50,6 +49,11 @@ function Navigation() {
             label: "Decks"
         },
         {
+            href: "/skill",
+            icon: "/Skill.png",
+            label: "Skills"
+        },
+        {
             href: "/about",
             icon: "/about.png",
             label: "About"
@@ -60,20 +64,17 @@ function Navigation() {
         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
             className: "max-w-4xl mx-auto flex items-center justify-around",
             children: navItems.map((item)=>{
-                const isActive = pathname === item.href || item.href !== "/" && pathname.startsWith(item.href);
+                const isActive = item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
                 return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
                     href: item.href,
-                    className: (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$utils$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["cn"])("flex flex-col items-center justify-center gap-1 py-3 px-4 text-xs font-medium transition-all duration-200 group", // Logic Text: Putih terang kalo aktif, abu-abu kalo diem, putih kalo hover
-                    isActive ? "text-white" : "text-muted-foreground group-hover:text-white"),
+                    className: (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$utils$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["cn"])("flex flex-col items-center justify-center gap-1 py-3 px-2 text-[10px] sm:text-xs font-medium transition-all duration-200 group min-w-[60px]", isActive ? "text-white" : "text-muted-foreground group-hover:text-white"),
                     children: [
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                             className: "w-6 h-6 relative flex items-center justify-center",
                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
                                 src: item.icon,
                                 alt: item.label,
-                                className: (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$utils$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["cn"])("w-full h-full object-contain transition-all duration-300", // --- LOGIC WARNA ICON ---
-                                isActive ? "filter-none scale-110" // Kalo AKTIF: Warna Asli (Default)
-                                 : "brightness-0 invert opacity-70 group-hover:filter-none group-hover:opacity-100 group-hover:scale-110")
+                                className: (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$utils$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["cn"])("w-full h-full object-contain transition-all duration-300", isActive ? "filter-none scale-110" : "brightness-0 invert opacity-70 group-hover:filter-none group-hover:opacity-100 group-hover:scale-110")
                             }, void 0, false, {
                                 fileName: "[project]/components/navigation.tsx",
                                 lineNumber: 36,
@@ -88,13 +89,13 @@ function Navigation() {
                             children: item.label
                         }, void 0, false, {
                             fileName: "[project]/components/navigation.tsx",
-                            lineNumber: 51,
+                            lineNumber: 47,
                             columnNumber: 15
                         }, this)
                     ]
                 }, item.href, true, {
                     fileName: "[project]/components/navigation.tsx",
-                    lineNumber: 25,
+                    lineNumber: 27,
                     columnNumber: 13
                 }, this);
             })
@@ -176,7 +177,9 @@ __turbopack_context__.s([
     "CARDS_DATA",
     ()=>CARDS_DATA,
     "DECKS_DATA",
-    ()=>DECKS_DATA
+    ()=>DECKS_DATA,
+    "SKILLS_DATA",
+    ()=>SKILLS_DATA
 ]);
 const MONSTER_CARDS = [
     {
@@ -699,6 +702,317 @@ const MONSTER_CARDS = [
             "Despia"
         ],
         image: "/cards/extra_deck/Condemned Darklord.webp"
+    },
+    {
+        id: "29",
+        name: "Fallen of Albaz",
+        type: "Monster",
+        rarity: "Super Rare",
+        description: `<b>[ Dragon / Effect ]</b>
+    If this card is Normal or Special Summoned (except during the Damage Step): You can discard 1 card; Fusion Summon 1 Fusion Monster from your Extra Deck, using monsters on either field as Fusion Material, including this card, but you cannot use other monsters you control as Fusion Material.
+    \nYou can only use this effect of "Fallen of Albaz" once per turn.`,
+        atk: 1800,
+        def: 0,
+        level: 4,
+        attribute: "Dark",
+        deckTypes: [
+            "Despia"
+        ],
+        image: "/cards/monsters/Fallen of Albaz.webp"
+    },
+    {
+        id: "30",
+        name: "Blue-Eyes Ultimate Dragon",
+        type: "Monster",
+        rarity: "Ultra Rare",
+        description: `<b>[ Dragon / Fusion ]</b>
+    "Blue-Eyes White Dragon" + "Blue-Eyes White Dragon" + "Blue-Eyes White Dragon"`,
+        atk: 4500,
+        def: 3800,
+        level: 12,
+        attribute: "Light",
+        deckTypes: [
+            "Blue-Eyes"
+        ],
+        image: "/cards/extra_deck/Blue-Eyes Ultimate Dragon.webp"
+    },
+    {
+        id: "31",
+        name: "Black Luster Soldier",
+        type: "Monster",
+        rarity: "Ultra Rare",
+        description: `<b>[ Warrior / Ritual ]</b>
+    You can Ritual Summon this card with "Black Luster Ritual".`,
+        atk: 3000,
+        def: 2500,
+        level: 8,
+        attribute: "Earth",
+        deckTypes: [
+            "Blue-Eyes"
+        ],
+        image: "/cards/monsters/Black Luster Soldier.webp"
+    },
+    {
+        id: "32",
+        name: "Elemental HERO Neos",
+        type: "Monster",
+        rarity: "Ultra Rare",
+        description: `<b>[ Warrior / Normal ]</b>
+    "A new Elemental HERO has arrived from Neo-Space! When he initiates a Contact Fusion with a Neo-Spacian his unknown powers are unleashed."`,
+        atk: 2500,
+        def: 2000,
+        level: 7,
+        attribute: "Light",
+        deckTypes: [
+            "HERO"
+        ],
+        image: "/cards/monsters/Elemental HERO Neos.webp"
+    },
+    {
+        id: "33",
+        name: "Rainbow Dragon",
+        type: "Monster",
+        rarity: "Ultra Rare",
+        description: `<b>[ Dragon / Effect ]</b>
+    (This card is always treated as an "Ultimate Crystal" card.)
+    \nCannot be Normal Summoned/Set.
+    \nMust be Special Summoned (from your hand) by having 7 "Crystal Beast" cards with different names on your field and/or GY.
+    \nThis card cannot activate the following effects the turn it is Special Summoned.
+    \n(Quick Effect): You can send all face-up "Crystal Beast" monsters you control to the GY; this card gains 1000 ATK for each monster sent to the GY.
+    \nYou can banish all "Crystal Beast" monsters from your GY; shuffle all cards on the field into the Deck.`,
+        atk: 4000,
+        def: 0,
+        level: 10,
+        attribute: "Light",
+        deckTypes: [
+            "Crystal Beast",
+            "HERO"
+        ],
+        image: "/cards/monsters/Rainbow Dragon.webp"
+    },
+    {
+        id: "34",
+        name: "Armed Dragon Thunder LV10",
+        type: "Monster",
+        rarity: "Ultra Rare",
+        description: `<b>[ Dragon / Effect ]</b>
+    If this card was Special Summoned by the effect of an "Armed Dragon" monster, it gains effects based on its own ATK.
+    \n● 1+: This card's name becomes "Armed Dragon LV10".
+    \n● 10+: Possession of this card cannot switch.
+    \n● 100+: Cannot be destroyed by battle.
+    \n● 1000+: Once per turn, during your opponent's turn (Quick Effect): You can send 1 card from your hand to the GY, then target 1 other card on the field; destroy it, and if you do, this card gains 1000 ATK.
+    \n● 10000+: Once per turn: You can destroy all other cards on the field.`,
+        atk: 3000,
+        def: 2000,
+        level: 10,
+        attribute: "Wind",
+        deckTypes: [
+            "Armed Dragon",
+            "HERO"
+        ],
+        image: "/cards/monsters/Armed Dragon Thunder LV10.webp"
+    },
+    {
+        id: "35",
+        name: "Number 39: Utopia",
+        type: "Monster",
+        rarity: "Ultra Rare",
+        description: `<b>[ Warrior / Xyz / Effect ]</b>
+    2 Level 4 monsters
+    \nWhen a monster declares an attack: You can detach 1 material from this card; negate the attack.
+    \nIf this card is targeted for an attack, while it has no material: Destroy this card.`,
+        atk: 2500,
+        def: 2000,
+        level: 4,
+        attribute: "Light",
+        deckTypes: [
+            "Utopia"
+        ],
+        image: "/cards/extra_deck/Number 39 Utopia.jpg"
+    },
+    {
+        id: "36",
+        name: "Astraltopia",
+        type: "Monster",
+        rarity: "Super Rare",
+        description: `<b>[ Warrior / Effect ]</b>
+    If an Xyz Monster(s) is on the field: You can Special Summon this card from your hand.
+    \nYou can send 1 other card from your hand or field to the GY; add 1 "Xyz", "Onomat", "Zexal", or "Number" Spell/Trap, from your Deck to your hand.
+    \nYou can only use each effect of "Astraltopia" once per turn.`,
+        atk: 0,
+        def: 0,
+        level: 4,
+        attribute: "Light",
+        deckTypes: [
+            "Utopia"
+        ],
+        image: "/cards/monsters/Astraltopia.jpg"
+    },
+    {
+        id: "37",
+        name: "Number C39: Utopia Ray Victory",
+        type: "Monster",
+        rarity: "Ultra Rare",
+        description: `<b>[ Warrior / Xyz / Effect ]</b>
+    3 Level 5 monsters
+    \nIf this card attacks, your opponent cannot activate any Spell/Trap Cards until the end of the Damage Step.
+    \nIf this card has a "Utopia" monster as an Xyz Material, it gains this effect.
+    \n● When this card declares an attack on a face-up monster your opponent controls: You can detach 1 Xyz Material from this card; negate that opponent's face-up monster's effects, also this card gains ATK equal to that opponent's monster's ATK.
+    \nThese changes last until the end of this turn.`,
+        atk: 2800,
+        def: 2500,
+        level: 5,
+        attribute: "Light",
+        deckTypes: [
+            "Utopia"
+        ],
+        image: "/cards/extra_deck/Number C39 Utopia Ray Victory.jpg"
+    },
+    {
+        id: "38",
+        name: "Sky Striker Ace - Roze",
+        type: "Monster",
+        rarity: "Ultra Rare",
+        description: `<b>[ Warrior / Effect ]</b>
+    If a "Sky Striker Ace" monster(s) is Normal or Special Summoned, except "Sky Striker Ace - Roze" (except during the Damage Step): You can Special Summon this card from your hand.
+    \nIf an opponent's monster in the Extra Monster Zone is destroyed by battle, or leaves the field because of your card effect, while this card is in your GY: You can Special Summon this card, then you can negate the effects of 1 face-up monster your opponent controls, until the end of this turn.
+    \nYou can only use each effect of "Sky Striker Ace - Roze" once per turn.`,
+        atk: 1500,
+        def: 1500,
+        level: 4,
+        attribute: "Light",
+        deckTypes: [
+            "Sky Striker"
+        ],
+        image: "/cards/monsters/Sky Striker Ace - Roze.jpg"
+    },
+    {
+        id: "39",
+        name: "Sky Striker Ace - Raye",
+        type: "Monster",
+        rarity: "Ultra Rare",
+        description: `<b>[ Warrior / Effect ]</b>
+   (Quick Effect): You can Tribute this card; Special Summon 1 "Sky Striker Ace" monster from your Extra Deck to the Extra Monster Zone.
+    \nWhile this card is in your GY, if a face-up "Sky Striker Ace" Link Monster you control is destroyed by battle, or leaves the field because of an opponent's card effect: You can Special Summon this card.
+    \nYou can only use each effect of "Sky Striker Ace - Raye" once per turn.`,
+        atk: 1500,
+        def: 1500,
+        level: 4,
+        attribute: "Dark",
+        deckTypes: [
+            "Sky Striker"
+        ],
+        image: "/cards/monsters/Sky Striker Ace - Raye.jpg"
+    },
+    {
+        id: "40",
+        name: "Surgical Striker - H.A.M.P.",
+        type: "Monster",
+        rarity: "Super Rare",
+        description: `<b>[ Machine / Effect ]</b>
+    (This card is always treated as a "Sky Striker" card.)
+    \nIf you control a "Sky Striker Ace" monster, you can Special Summon this card (from your hand) to either field by Tributing 1 monster from that field.
+    \nYou can only Special Summon "Surgical Striker - H.A.M.P." once per turn this way.
+    \nWhen this card is destroyed by battle: You can target 1 card your opponent controls; destroy it.`,
+        atk: 2500,
+        def: 2500,
+        level: 8,
+        attribute: "Dark",
+        deckTypes: [
+            "Sky Striker"
+        ],
+        image: "/cards/monsters/Surgical Striker - H.A.M.P..jpg"
+    },
+    {
+        id: "41",
+        name: "Sky Striker Ace - Hayate",
+        type: "Monster",
+        rarity: "Super Rare",
+        description: `<b>[ Machine / Link / Effect ]</b>
+    1 non-WIND "Sky Striker Ace" monster
+    \nYou can only Special Summon "Sky Striker Ace - Hayate(s)" once per turn.
+    \nThis card can attack directly.
+    \nAfter damage calculation, if this card battled: You can send 1 "Sky Striker" card from your Deck to the GY.`,
+        atk: 1500,
+        LINK: 1,
+        attribute: "Wind",
+        deckTypes: [
+            "Sky Striker"
+        ],
+        image: "/cards/extra_deck/Sky Striker Ace - Hayate.jpg"
+    },
+    {
+        id: "42",
+        name: "Sky Striker Ace - Kaina",
+        type: "Monster",
+        rarity: "Super Rare",
+        description: `<b>[ Machine / Link / Effect ]</b>
+    1 non-EARTH "Sky Striker Ace" monster
+    \nIf this card is Special Summoned: You can target 1 face-up monster your opponent controls; it cannot attack until the end of your opponent's turn.
+    \nEach time you activate a "Sky Striker" Spell Card, or its effect, gain 100 LP immediately after the card or effect resolves.
+    \nYou can only Special Summon "Sky Striker Ace - Kaina(s)" once per turn.`,
+        atk: 1500,
+        LINK: 1,
+        attribute: "Earth",
+        deckTypes: [
+            "Sky Striker"
+        ],
+        image: "/cards/extra_deck/Sky Striker Ace - Kaina.jpg"
+    },
+    {
+        id: "43",
+        name: "Sky Striker Ace - Shizuku",
+        type: "Monster",
+        rarity: "Ultra Rare",
+        description: `<b>[ Machine / Link / Effect ]</b>
+    1 non-WATER "Sky Striker Ace" monster
+    \nMonsters your opponent controls lose 100 ATK/DEF for each Spell in your GY.
+    \nOnce per turn, during the End Phase, if this card was Special Summoned this turn: You can add 1 "Sky Striker" Spell from your Deck to your hand, with a name different from the cards in your GY.
+    \nYou can only Special Summon "Sky Striker Ace - Shizuku(s)" once per turn.`,
+        atk: 1500,
+        LINK: 1,
+        attribute: "Water",
+        deckTypes: [
+            "Sky Striker"
+        ],
+        image: "/cards/extra_deck/Sky Striker Ace - Shizuku.jpg"
+    },
+    {
+        id: "44",
+        name: "Sky Striker Ace - Zeke",
+        type: "Monster",
+        rarity: "Ultra Rare",
+        description: `<b>[ Machine / Link / Effect ]</b>
+    2 monsters, including a "Sky Striker Ace" monster
+    \nMust be Link Summoned.
+    \nYou can only Special Summon "Sky Striker Ace - Zeke(s)" once per turn.
+    \nIf this card is Link Summoned: You can target 1 face-up monster on the field; banish it until your opponent's next End Phase.
+    \nOnce per turn: You can target 1 other card you control; this card gains 1000 ATK, then, send the targeted card to the GY.`,
+        atk: 1500,
+        LINK: 2,
+        attribute: "Dark",
+        deckTypes: [
+            "Sky Striker"
+        ],
+        image: "/cards/extra_deck/Sky Striker Ace - Zeke.jpg"
+    },
+    {
+        id: "45",
+        name: "Sky Striker Ace - Kagari",
+        type: "Monster",
+        rarity: "Ultra Rare",
+        description: `<b>[ Machine / Link / Effect ]</b>
+    1 non-FIRE "Sky Striker Ace" monster
+    \nIf this card is Special Summoned: You can target 1 "Sky Striker" Spell in your GY; add it to your hand.
+    \nGains 100 ATK for each Spell in your GY.
+    \nYou can only Special Summon "Sky Striker Ace - Kagari(s)" once per turn.`,
+        atk: 1500,
+        LINK: 1,
+        attribute: "Fire",
+        deckTypes: [
+            "Sky Striker"
+        ],
+        image: "/cards/extra_deck/Sky Striker Ace - Kagari.jpg"
     }
 ];
 const SPELL_CARDS = [
@@ -853,6 +1167,153 @@ const SPELL_CARDS = [
             "Despia"
         ],
         image: "/cards/spells/Despia, Theater of the Branded.webp"
+    },
+    {
+        id: "72",
+        name: "Polymerization",
+        type: "Spell",
+        rarity: "Super Rare",
+        description: `Fusion Summon 1 Fusion Monster from your Extra Deck, using monsters from your hand or field as Fusion Material.`,
+        attribute: "Normal Spell",
+        deckTypes: [
+            "HERO"
+        ],
+        image: "/cards/spells/Polymerization.webp"
+    },
+    {
+        id: "73",
+        name: "Rank-Up-Magic Numeron Force",
+        type: "Spell",
+        rarity: "Super Rare",
+        description: `Target 1 face-up Xyz Monster you control; Special Summon from your Extra Deck, 1 "Number C" monster with the same Type as that monster you control, but 1 Rank higher, by using it as the Xyz Material. (This Special Summon is treated as an Xyz Summon. Xyz Materials attached to it also become Xyz Materials on the Summoned monster.)
+    \nThen, if any face-up cards are on the field other than this card and the monster Summoned by it, negate the effects of those other card.`,
+        attribute: "Normal Spell",
+        deckTypes: [
+            "Utopia"
+        ],
+        image: "/cards/spells/Rank-Up-Magic Numeron Force.jpg"
+    },
+    {
+        id: "74",
+        name: "Sky Striker Mobilize - Engage!",
+        type: "Spell",
+        rarity: "Ultra Rare",
+        description: `If you control no monsters in your Main Monster Zone: Add 1 "Sky Striker" card from your Deck to your hand, except "Sky Striker Mobilize - Engage!", then, if you have 3 or more Spells in your GY, you can draw 1 card.`,
+        attribute: "Normal Spell",
+        deckTypes: [
+            "Sky Striker"
+        ],
+        image: "/cards/spells/Sky Striker Mobilize - Engage!.jpg"
+    },
+    {
+        id: "75",
+        name: "Sky Striker Mecha - Eagle Booster",
+        type: "Spell",
+        rarity: "Rare",
+        description: `If you control no monsters in your Main Monster Zone: Target 1 face-up monster on the field; that target is unaffected by card effects this turn, except its own, and if you have 3 or more Spells in your GY, it cannot be destroyed by battle this turn.`,
+        attribute: "Quick-Play Spell",
+        deckTypes: [
+            "Sky Striker"
+        ],
+        image: "/cards/spells/Sky Striker Mecha - Eagle Booster.jpg"
+    },
+    {
+        id: "76",
+        name: "Sky Striker Mecha - Widow Anchor",
+        type: "Spell",
+        rarity: "Ultra Rare",
+        description: `If you control no monsters in your Main Monster Zone: Target 1 face-up Effect Monster on the field; negate that face-up monster's effects until the end of this turn, then, if you have 3 or more Spells in your GY, you can take control of that monster until the End Phase.`,
+        attribute: "Quick-Play Spell",
+        deckTypes: [
+            "Sky Striker"
+        ],
+        image: "/cards/spells/Sky Striker Mecha - Widow Anchor.jpg"
+    },
+    {
+        id: "77",
+        name: "Sky Striker Mecha - Shark Cannon",
+        type: "Spell",
+        rarity: "Rare",
+        description: `If you control no monsters in your Main Monster Zone: Target 1 monster in your opponent's GY; banish that monster, or, if you have 3 or more Spells in your GY, you can Special Summon that monster to your field instead, but it cannot attack.`,
+        attribute: "Quick-Play Spell",
+        deckTypes: [
+            "Sky Striker"
+        ],
+        image: "/cards/spells/Sky Striker Mecha - Shark Cannon.jpg"
+    },
+    {
+        id: "78",
+        name: "Sky Striker Maneuver - Scissors Cross",
+        type: "Spell",
+        rarity: "Normal",
+        description: `If you control no monsters in your Main Monster Zone: Target 1 Level 4 "Sky Striker Ace" monster in your GY; add it to your hand, or if you have 3 or more Spells in your GY, you can Special Summon it instead.`,
+        attribute: "Normal Spell",
+        deckTypes: [
+            "Sky Striker"
+        ],
+        image: "/cards/spells/Sky Striker Maneuver - Scissors Cross.jpg"
+    },
+    {
+        id: "79",
+        name: "Sky Striker Maneuver - Afterburners!",
+        type: "Spell",
+        rarity: "Rare",
+        description: `IIf you control no monsters in your Main Monster Zone: Target 1 face-up monster on the field; destroy it, then, if you have 3 or more Spells in your GY, you can destroy 1 Spell/Trap on the field.`,
+        attribute: "Normal Spell",
+        deckTypes: [
+            "Sky Striker"
+        ],
+        image: "/cards/spells/Sky Striker Maneuver - Afterburners!.jpg"
+    },
+    {
+        id: "80",
+        name: "Sky Striker Maneuver - Jamming Waves!",
+        type: "Spell",
+        rarity: "Super Rare",
+        description: `IIf you control no monsters in your Main Monster Zone: Target 1 Set Spell/Trap on the field; destroy it, then, if you have 3 or more Spells in your GY, you can destroy 1 monster on the field.`,
+        attribute: "Normal Spell",
+        deckTypes: [
+            "Sky Striker"
+        ],
+        image: "/cards/spells/Sky Striker Maneuver - Jamming Waves!.jpg"
+    },
+    {
+        id: "81",
+        name: "Sky Striker Mobilize - Linkage!",
+        type: "Spell",
+        rarity: "Ultra Rare",
+        description: `If you control no monsters in your Main Monster Zone: You cannot Special Summon monsters from the Extra Deck for the rest of this turn after this card resolves, except "Sky Striker Ace" monsters, also send 1 other card you control to the GY, and if you do, Special Summon 1 "Sky Striker Ace" monster from your Extra Deck to the Extra Monster Zone, and if you have at least 1 LIGHT and 1 DARK "Sky Striker Ace" monsters on your field and/or in your GY, the Summoned monster gains 1000 ATK.`,
+        attribute: "Quick-Play Spell",
+        deckTypes: [
+            "Sky Striker"
+        ],
+        image: "/cards/spells/Sky Striker Mobilize - Linkage!.jpg"
+    },
+    {
+        id: "82",
+        name: "Sky Striker Mobilize - Engage!",
+        type: "Spell",
+        rarity: "Ultra Rare",
+        description: `If you control no monsters in your Main Monster Zone: Add 1 "Sky Striker" card from your Deck to your hand, except "Sky Striker Mobilize - Engage!", then, if you have 3 or more Spells in your GY, you can draw 1 card.`,
+        attribute: "Normal Spell",
+        deckTypes: [
+            "Sky Striker"
+        ],
+        image: "/cards/spells/Sky Striker Mobilize - Engage!.jpg"
+    },
+    {
+        id: "83",
+        name: "Sky Striker Airspace - Area Zero",
+        type: "Spell",
+        rarity: "Rare",
+        description: `You can target 1 other card you control; excavate the top 3 cards of your Deck, and if you do, you can add 1 excavated "Sky Striker" card to your hand, also shuffle the rest into the Deck, then, if you excavated a "Sky Striker" card, send the targeted card to the GY.
+If this card in the Field Zone is sent to the GY by a card effect: You can Special Summon 1 "Sky Striker Ace" monster from your Deck.
+You can only use each effect of "Sky Striker Airspace - Area Zero" once per turn.`,
+        attribute: "Field Spell",
+        deckTypes: [
+            "Sky Striker"
+        ],
+        image: "/cards/spells/Sky Striker Airspace - Area Zero.jpg"
     }
 ];
 const TRAP_CARDS = [
@@ -914,6 +1375,7 @@ const DECKS_DATA = [
         tier: "S",
         description: "Highly consistent engine with easy access to negates and spot removal for now.",
         skill: "Master of Blue-Eyes",
+        skillType: "Character",
         winRate: 61,
         usage: 24,
         difficulty: 8,
@@ -963,6 +1425,8 @@ const DECKS_DATA = [
         name: "Despia",
         tier: "A",
         description: "Insane consistency that sets up a heavy LP tax on every activation, backed by an instant board wipe.",
+        skill: "Theater of the Branded's Opening",
+        skillType: "Universal",
         winRate: 56,
         usage: 18,
         difficulty: 7,
@@ -972,7 +1436,7 @@ const DECKS_DATA = [
             "Aluber the Jester of Despia",
             "Dramaturge of Despia",
             "Dramaturge of Despia",
-            "Dramaturge of Despia",
+            "Fallen of Albaz",
             "Ad Libitum of Despia",
             "Ad Libitum of Despia",
             "Despian Comedy",
@@ -1010,7 +1474,166 @@ const DECKS_DATA = [
             "Condemned Darklord",
             "Dingirsu, the Orcust of the Evening Star"
         ],
-        strategy: "Mill cards to setup Tearlament effects, use Fusion Summons to extend combos and control the board."
+        strategy: `Going 1st Your gameplan is as follows:
+
+                 ● Not Brick (by playing lots of despias so the skill is always live)
+                 ● Get to "Masquerade the Blazing Dragon"
+                 ● Get "Darklord Morningstar"
+                 ● Get "Branded in Red" so you can clear board on your opponent turn.
+              
+                 The "Going 1st" Combo
+                      
+            1. Use skill to add either Tragedy or Dramaturge, whichever you dont have.
+            2. Use field to fuse the two, making "Masquerade the Blazing Dragon" in the middle of the main monster zone.
+            3. Special Summon Dramaturge after the fusion, and add Aluber from Tragedy's effect
+            4. Normal Aluber, add Branded in Red.
+            5. Link Aluber and Dramaturge into Condemned Darklord.
+            6. Use Condemned Darklord to discard a card to get Darklord Morningstar. Preferably disscarding Branded Opening for Graveyard protection for your fusion monsters from destruction.
+
+            Note that using Branded Opening WILL lock you to fusions, so dont use it if you have a path to Condemned Darklord.
+
+    This combo uses the 1 Despia you'll have in hand, a discard for Condemned Darklord and your skill, which means youre likely to stay with 2 more cards in hand which could be your other non-engine.
+
+    Going 2nd My recommandation is to not underestimate Starving Venom Fusion Dragon, sometimes that card alone can be the game ender, attacking into a small monster using the ATK of something else the opponent has, especially if Quearitis resoved earlier. I Usually make sure i still get Tragedy and Dramaturge, since your skill will get you Branded in Red, you're mostly good to go.
+
+    I like to send Ad Libitum to the Graveyard with the 2nd Skill effect, for extantion and revival if needed. In some cases the best cards to send to grave with your skills will be:
+
+    Aluber
+            ● When you see that your opponent WILL destroy your first fusion and you have no way to save it with Branded Opening, Aluber in grave will trigger and negate 1 of their monsters.
+    Comedy
+            ● When your opponent has target negation, such as Effect Veiler, Infinite Impermenance, or Swordsoul Chixiao. Tributing your Fusion monster will allow you to dodge those kind of effects.`
+    },
+    {
+        id: "3",
+        name: "Sky Striker",
+        tier: "A",
+        description: "A control deck that grinds out resources while maintaining field presence with link monsters and powerful spell cards.",
+        skill: "Sky Striker Ace Defying Fate",
+        skillType: "Universal",
+        winRate: 54,
+        usage: 15,
+        difficulty: 9,
+        popularity: 3,
+        mainCards: [
+            "Sky Striker Ace - Raye",
+            "Sky Striker Ace - Roze",
+            "Surgical Striker - H.A.M.P.",
+            "Sky Striker Mobilize - Engage!",
+            "Sky Striker Mobilize - Engage!",
+            "Sky Striker Mobilize - Engage!",
+            "Sky Striker Mecha - Widow Anchor",
+            "Sky Striker Mecha - Widow Anchor",
+            "Sky Striker Mecha - Eagle Booster",
+            "Sky Striker Mecha - Shark Cannon",
+            "Sky Striker Maneuver - Jamming Waves!",
+            "Sky Striker Maneuver - Afterburners!",
+            "Sky Striker Maneuver - Afterburners!",
+            "Sky Striker Mobilize - Linkage!",
+            "Sky Striker Mobilize - Linkage!",
+            "Mystical Space Typhoon",
+            "Mystical Space Typhoon"
+        ],
+        extraCards: [
+            "Sky Striker Ace - Hayate",
+            "Sky Striker Ace - Kaina",
+            "Sky Striker Ace - Shizuku",
+            "Sky Striker Ace - Shizuku",
+            "Sky Striker Ace - Zeke",
+            "Sky Striker Ace - Zeke",
+            "Sky Striker Ace - Kagari",
+            "Sky Striker Ace - Kagari"
+        ],
+        strategy: `The Sky Striker deck is a control-oriented deck that focuses on maintaining field presence through the use of Link Monsters and powerful Spell Cards. The deck's main strategy revolves around the Sky Striker Ace monsters, which can be summoned using the various Sky Striker Spell Cards.`
+    }
+];
+const SKILLS_DATA = [
+    {
+        id: "s1",
+        name: "Master of Blue-Eyes",
+        character: "Seto Kaiba",
+        type: "Character",
+        description: `You can use this Skill's first and second effects once per Duel if your Deck contains a total of 15 or more "Blue-Eyes White Dragon" cards or cards that mention it.
+    1: Reveal 1 "Blue-Eyes" monster from your hand and add 1 "Blue-Eyes White Dragon" or another card that mentions it from your Deck to your hand. Then, send 1 "Blue-Eyes Ultimate Dragon" and 1 "Black Luster Soldier" from outside your Deck to the Graveyard.
+    2: If you control a "Blue-Eyes" monster or only your opponent controls a monster, Set 1 Spell/Trap card that mentions "Blue-Eyes White Dragon". (This card can be activated the same turn.)`,
+        image: "/Skill.png",
+        characterImage: "/characters/seto-kaiba.webp",
+        relatedCards: [
+            "1",
+            "30",
+            "31",
+            "34"
+        ]
+    },
+    {
+        id: "s2",
+        name: "Theater of the Branded's Opening",
+        type: "Universal",
+        description: `You can only use this Skill's second and third effects once per Duel.
+    1: You cannot Special Summon any monsters with a Level, except "Fallen of Albaz", "Despia" monsters, and DARK and LIGHT Level 8 or higher monsters.
+    2: Reveal 1 "Despia" monster or "Branded Opening" from your hand, then shuffle 1 card from your hand into the Deck, and add 1 "Despia" monster or "Branded Opening" from your Deck to your hand. Then, you can add 1 "Despia, Theater of the Branded" from your Deck to your hand.
+    3: If only your opponent controls a monster, send 1 "Despia" monster from your Deck to the Graveyard. Then, you can add 1 "Branded in Red" from your Deck to your hand.`,
+        image: "/Skill_Uni.png",
+        characterImage: "/characters/branded.jpg",
+        relatedCards: [
+            "29",
+            "69",
+            "70",
+            "71"
+        ]
+    },
+    {
+        id: "s3",
+        name: "Dragonic Contact",
+        type: "Character",
+        character: "Jaden/Yubel",
+        description: `You can use this Skill's second effect once per turn if your Deck contains "Rainbow Dragon".
+    1: You cannot Special Summon monsters, except "Neos", "Yubel", "Elemental HERO", and "Neo-Spacian" monsters.
+    2: Send 1 Warrior monster or Level 10 monster from your hand or face-up field to the Graveyard, then play 1 of the following monsters from your Deck or Graveyard in face-down Defense Position (its battle position can be changed), and add 1 "Super Polymerization" from your Deck and 1 "Polymerization" from outside of your Deck to your hand.
+    - "Elemental HERO Neos"
+    - "Ultimate Crystal" monster
+    - WIND "Armed Dragon" monster (treated as having been Special Summoned by the effect of an "Armed Dragon" monster)`,
+        image: "/Skill.png",
+        characterImage: "/characters/JadenYubel.webp",
+        relatedCards: [
+            "32",
+            "33",
+            "34",
+            "72"
+        ]
+    },
+    {
+        id: "s4",
+        name: "ZEXAL II – Power the Future",
+        character: "Yuma Tsukumo",
+        type: "Character",
+        description: `You can use each of this Skill's second and third effects once per turn and twice per Duel if your Deck contains "Number C39: Utopia Ray Victory".
+    1: You cannot Special Summon any monsters from your Extra Deck, except Xyz Monsters, and you cannot Special Summon any monsters with Spell/Trap Cards, except "Utopia" monsters with 2500 ATK and/or DEF.
+    2: Can be activated by shuffling 1 card from your hand into the Deck and revealing 1 "ZS -" monster or 1 "Astraltopia" in your hand. Yuma and Astral build the Overlay Network! ZEXAL Ⅱ morph! Add up to 2 "ZS -" monsters and/or "Astraltopia" from your Deck to your hand.
+    3: Can be activated after morphing by shuffling 1 card from your hand or field into the Deck. Reveal the true form of 1 card in your hand, turning it into "Rank-Up-Magic Numeron Force", and play 1 "Number 39: Utopia" from outside of your Deck. Then, you can Xyz Summon "Number C39: Utopia Ray Victory" using that "Number 39: Utopia" you just played and 1 monster your opponent controls as material.`,
+        image: "/Skill.png",
+        characterImage: "/characters/yuma-astral.webp",
+        relatedCards: [
+            "35",
+            "36",
+            "37",
+            "73"
+        ]
+    },
+    {
+        id: "s5",
+        name: "Sky Striker Ace Defying Fate",
+        type: "Universal",
+        description: `You can use each of this Skill's first and second effects once per Duel if your Deck contains 1 or more "Sky Striker Ace - Roze" and 9 or more "Sky Striker" Spell Cards.
+    1: At the beginning of your first turn, add 4 "Sky Striker Ace" Link Monsters with different names to your Extra Deck (except monsters that your Extra Deck already contains 3 copies of), and place 1 "Sky Striker Airspace - Area Zero" from outside of your Deck face-up in your Field Zone.
+    2: Send up to 2 "Sky Striker" cards from your hand and/or field (either face-up or face-down) to the Graveyard, then draw 1 card.`,
+        image: "/Skill_Uni.png",
+        characterImage: "/characters/sky-striker.png",
+        relatedCards: [
+            "38",
+            "41",
+            "42",
+            "74"
+        ]
     }
 ];
 }),
@@ -1068,7 +1691,7 @@ function DecksPage() {
                                         children: "Meta Decks"
                                     }, void 0, false, {
                                         fileName: "[project]/app/decks/page.tsx",
-                                        lineNumber: 30,
+                                        lineNumber: 29,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1076,13 +1699,13 @@ function DecksPage() {
                                         children: "Current competitive tier list"
                                     }, void 0, false, {
                                         fileName: "[project]/app/decks/page.tsx",
-                                        lineNumber: 31,
+                                        lineNumber: 30,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/decks/page.tsx",
-                                lineNumber: 29,
+                                lineNumber: 28,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1095,18 +1718,18 @@ function DecksPage() {
                                         children: tier === "all" ? "All Tiers" : `Tier ${tier}`
                                     }, tier, false, {
                                         fileName: "[project]/app/decks/page.tsx",
-                                        lineNumber: 37,
+                                        lineNumber: 35,
                                         columnNumber: 15
                                     }, this))
                             }, void 0, false, {
                                 fileName: "[project]/app/decks/page.tsx",
-                                lineNumber: 35,
+                                lineNumber: 33,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/decks/page.tsx",
-                        lineNumber: 28,
+                        lineNumber: 27,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1129,7 +1752,7 @@ function DecksPage() {
                                                                 children: deck.name
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/decks/page.tsx",
-                                                                lineNumber: 58,
+                                                                lineNumber: 55,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1140,13 +1763,13 @@ function DecksPage() {
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/app/decks/page.tsx",
-                                                                lineNumber: 59,
+                                                                lineNumber: 56,
                                                                 columnNumber: 23
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/decks/page.tsx",
-                                                        lineNumber: 57,
+                                                        lineNumber: 54,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1154,18 +1777,18 @@ function DecksPage() {
                                                         children: deck.description
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/decks/page.tsx",
-                                                        lineNumber: 65,
+                                                        lineNumber: 62,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                         className: "flex gap-2 flex-wrap",
                                                         children: [
                                                             deck.mainCards?.slice(0, 3).map((card, i)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                    className: "text-xs bg-secondary/20 text-secondary px-2 py-1 rounded",
+                                                                    className: "text-ms bg-secondary/20 text-gray-500 px-2 py-1 rounded",
                                                                     children: card
                                                                 }, i, false, {
                                                                     fileName: "[project]/app/decks/page.tsx",
-                                                                    lineNumber: 68,
+                                                                    lineNumber: 65,
                                                                     columnNumber: 25
                                                                 }, this)),
                                                             deck.mainCards && deck.mainCards.length > 3 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1177,47 +1800,47 @@ function DecksPage() {
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/app/decks/page.tsx",
-                                                                lineNumber: 73,
+                                                                lineNumber: 70,
                                                                 columnNumber: 25
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/decks/page.tsx",
-                                                        lineNumber: 66,
+                                                        lineNumber: 63,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/decks/page.tsx",
-                                                lineNumber: 56,
+                                                lineNumber: 53,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$right$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronRight$3e$__["ChevronRight"], {
                                                 className: "w-6 h-6 text-muted-foreground group-hover:text-primary transition-colors"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/decks/page.tsx",
-                                                lineNumber: 79,
+                                                lineNumber: 76,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/decks/page.tsx",
-                                        lineNumber: 55,
+                                        lineNumber: 52,
                                         columnNumber: 17
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/app/decks/page.tsx",
-                                    lineNumber: 54,
+                                    lineNumber: 51,
                                     columnNumber: 15
                                 }, this)
                             }, deck.id, false, {
                                 fileName: "[project]/app/decks/page.tsx",
-                                lineNumber: 53,
+                                lineNumber: 50,
                                 columnNumber: 13
                             }, this))
                     }, void 0, false, {
                         fileName: "[project]/app/decks/page.tsx",
-                        lineNumber: 51,
+                        lineNumber: 48,
                         columnNumber: 9
                     }, this)
                 ]
@@ -1228,7 +1851,7 @@ function DecksPage() {
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$navigation$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Navigation"], {}, void 0, false, {
                 fileName: "[project]/app/decks/page.tsx",
-                lineNumber: 87,
+                lineNumber: 84,
                 columnNumber: 7
             }, this)
         ]

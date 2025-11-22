@@ -24,14 +24,12 @@ export default function DecksPage() {
   return (
     <main className="min-h-screen bg-background pb-24">
       <div className="max-w-4xl mx-auto p-4 space-y-6">
-        {/* Header */}
         <div className="space-y-4 pt-4">
           <div>
             <h1 className="text-3xl font-bold mb-2">Meta Decks</h1>
             <p className="text-muted-foreground">Current competitive tier list</p>
           </div>
 
-          {/* Tier Filter */}
           <div className="flex gap-2 flex-wrap">
             {tiers.map((tier) => (
               <Button
@@ -47,7 +45,6 @@ export default function DecksPage() {
           </div>
         </div>
 
-        {/* Decks List */}
         <div className="space-y-4">
           {filteredDecks.map((deck) => (
             <Link key={deck.id} href={`/decks/${deck.id}`}>
@@ -65,7 +62,7 @@ export default function DecksPage() {
                     <p className="text-muted-foreground">{deck.description}</p>
                     <div className="flex gap-2 flex-wrap">
                       {deck.mainCards?.slice(0, 3).map((card, i) => (
-                        <span key={i} className="text-xs bg-secondary/20 text-secondary px-2 py-1 rounded">
+                        <span key={i} className="text-ms bg-secondary/20 text-gray-500 px-2 py-1 rounded">
                           {card}
                         </span>
                       ))}

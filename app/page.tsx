@@ -7,22 +7,22 @@ import { CARDS_DATA, DECKS_DATA } from "@/lib/data"
 import { Star } from "lucide-react"
 
 export default function Home() {
-  // Ambil 6 kartu (Nanti jadi 3x2)
   const topMetaCards = CARDS_DATA.filter((card) => 
-  ["63", "2", "3", "4", "25", "23"].includes(card.id))   
-  // Ambil 5 deck teratas
+  ["42", "2", "3", "4", "25", "23"].includes(card.id))   
   const topMetaDecks = DECKS_DATA.filter((deck) => 
-  ["1", "2", "3", "4", "5"].includes(deck.id))
+  ["1", "2", "3",].includes(deck.id))
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-background to-card pb-24">
-      {/* Header Section */}
-      <div className="px-4 py-8 space-y-2">
-        <h1 className="text-4xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-          Yu-Gi-Oh Catalog
-        </h1>
-        <p className="text-muted-foreground">Explore cards, discover meta decks, and master the game</p>
-      </div>
+      {/* Header */}
+        <div className="pt-10 pl-3 md:pl-5 space-y-4 text-center md:text-left">
+          <div className="space-y-2">
+            <h1 className="text-4xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent inline-block">
+                Yu-Gi-Oh Duel Links
+            </h1>
+            <h2 className="text-2xl text-foreground/80">Explore cards, discover meta decks, and master the game</h2>
+          </div>
+        </div>
 
       {/* Popular Cards Section */}
       <section className="px-4 py-6 space-y-4">
@@ -35,13 +35,11 @@ export default function Home() {
           </Link>
         </div>
 
-        {/* GRID 3x2 (3 Kolom di Layar Gede) */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {topMetaCards.map((card) => (
             <Link key={card.id} href={`/cards/${card.id}`}>
               <div className="group bg-card border border-primary/20 rounded-lg overflow-hidden hover:border-primary/60 hover:shadow-lg transition-all cursor-pointer h-full flex flex-col">
                 
-                {/* Gambar Kartu - Aspect Video (Setengah) */}
                 <div className="aspect-video bg-black relative overflow-hidden">
                     <img
                         src={card.image || `/.jpg?height=613&width=420&query=${encodeURIComponent(card.name)}`}
@@ -51,19 +49,16 @@ export default function Home() {
                     <div className="absolute inset-0 bg-gradient-to-t from-background to-transparent" />
                 </div>
 
-                {/* Content */}
                 <div className="p-4 space-y-2 flex flex-col flex-grow -mt-8 relative z-10">
                     <h3 className="text-lg font-bold text-foreground group-hover:text-primary transition-colors truncate">
                       {card.name}
                     </h3>
                     
-                    {/* Type & Rarity */}
                     <div className="flex gap-2 flex-wrap">
                         <span className="text-xs bg-primary/20 text-primary px-2 py-1 rounded">{card.type}</span>
                         <span className="text-xs bg-accent/20 text-accent px-2 py-1 rounded font-medium">{card.rarity}</span>
                     </div>
 
-                    {/* Stats Section */}
                     {card.type === "Monster" && (
                         <div className="grid grid-cols-2 gap-2 text-xs mt-auto pt-3">
                             {card.atk !== undefined && (
@@ -93,7 +88,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Meta Decks Section - UPDATED BIGGER VERSION */}
       <section className="px-4 py-6 space-y-6">
         <div className="flex items-center justify-between">
           <h2 className="text-3xl font-bold">Meta Decks</h2>
@@ -107,28 +101,23 @@ export default function Home() {
             <Link key={deck.id} href={`/decks/${deck.id}`}>
               <div className="group bg-card border border-primary/20 rounded-xl overflow-hidden hover:border-primary/60 hover:shadow-xl transition-all cursor-pointer h-full flex flex-col min-h-[350px]">
                 
-                {/* Header Card: Padding Gede (p-5) */}
                 <div className="bg-gradient-to-r from-primary/20 to-accent/20 p-5 border-b border-primary/20">
                   <div className="flex items-start justify-between gap-3">
                     <h3 className="text-2xl font-bold text-foreground group-hover:text-primary transition-colors">
                       {deck.name}
                     </h3>
-                    {/* Tier Badge Besar */}
                     <div className={`text-base font-bold px-4 py-1.5 rounded shadow-md text-white whitespace-nowrap "bg-gray-600"}`}>
                       Tier {deck.tier}
                     </div>
                   </div>
                 </div>
 
-                {/* Body Card: Padding Gede (p-6) & Spacing Lebar */}
                 <div className="p-6 space-y-6 flex flex-col flex-grow">
                   
-                  {/* Deskripsi: Font Lebih Besar (text-base) */}
                   <p className="text-base text-muted-foreground line-clamp-3 leading-relaxed">
                     {deck.description}
                   </p>
 
-                  {/* Stats Grid: Font Angka Lebih Besar (text-xl) */}
                   <div className="grid grid-cols-2 gap-4 mt-auto">
                     <div className="bg-background/50 p-3 rounded border border-border/50">
                       <p className="text-muted-foreground text-sm mb-1">Win Rate</p>
@@ -162,7 +151,6 @@ export default function Home() {
                     </div>
                   </div>
 
-                  {/* Strategy Quote */}
                   {deck.strategy && (
                     <p className="text-sm text-muted-foreground italic border-l-4 border-accent pl-4 py-2">
                       "{deck.strategy.substring(0, 80)}..."
@@ -175,17 +163,14 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Quick Actions - UPDATED BUTTONS */}
       <section className="px-4 py-6">
         <div className="grid grid-cols-2 gap-4">
           <Link href="/cards">
-            {/* Browse All Cards: Base Gelap, Hover BIRU */}
             <Button className="w-full h-12 bg-secondary hover:bg-blue-600 hover:text-white transition-all duration-300">
               Browse All Cards
             </Button>
           </Link>
           <Link href="/decks">
-            {/* Meta Decks: Base Gelap (Sama), Hover MERAH */}
             <Button className="w-full h-12 bg-secondary hover:bg-red-600 hover:text-white transition-all duration-300">
               Meta Decks
             </Button>

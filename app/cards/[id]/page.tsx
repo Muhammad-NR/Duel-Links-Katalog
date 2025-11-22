@@ -37,7 +37,6 @@ export default function CardDetailPage() {
           <span>Back to Cards</span>
         </Link>
 
-        {/* --- IMAGE SECTION --- */}
         <div className="bg-card border border-border rounded-xl overflow-hidden mb-8 max-w-[420px] mx-auto shadow-2xl">
           <div 
             className="aspect-[420/613] bg-black flex items-center justify-center cursor-zoom-in relative group"
@@ -55,7 +54,6 @@ export default function CardDetailPage() {
           </div>
         </div>
 
-        {/* --- INFO SECTION --- */}
         <div className="space-y-6">
           <div>
             <h1 className="text-4xl font-bold mb-2">{card.name}</h1>
@@ -74,7 +72,6 @@ export default function CardDetailPage() {
               />
             </div>
 
-            {/* === LOGIC STATUS MONSTER === */}
             {card.type === "Monster" && (
               <div className="grid grid-cols-2 gap-4 pt-4 border-t border-border">
                 <div>
@@ -96,11 +93,9 @@ export default function CardDetailPage() {
               </div>
             )}
 
-            {/* === ATTRIBUTES (UPDATED: LEBIH GEDE & JELAS) === */}
             <div>
               <h3 className="text-sm font-semibold text-muted-foreground mb-3">Attributes</h3>
               <div className="flex gap-3 flex-wrap">
-                {/* Level/Rank Badge */}
                 {card.type === "Monster" && !card.LINK && (
                   <div className="px-4 py-2 rounded-lg bg-zinc-800 text-white font-bold text-base border border-zinc-700 shadow-sm flex items-center gap-2">
                     <span className="text-muted-foreground font-bold text-base">Level:</span>
@@ -108,14 +103,12 @@ export default function CardDetailPage() {
                   </div>
                 )}
 
-                {/* Attribute Badge */}
                 <div className="px-4 py-2 rounded-lg bg-zinc-800 text-white font-bold text-base border border-zinc-700 shadow-sm">
                   {card.attribute}
                 </div>
               </div>
             </div>
 
-            {/* === USABLE IN DECKS === */}
             <div>
               <h3 className="text-sm font-semibold text-muted-foreground mb-3">Usable in Decks</h3>
               <div className="flex gap-2 flex-wrap">

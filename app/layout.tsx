@@ -3,16 +3,14 @@ import type { Metadata } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
+import { Header } from "@/components/header" 
 
 const _geist = Geist({ subsets: ["latin"] })
 const _geistMono = Geist_Mono({ subsets: ["latin"] })
 
-// <CHANGE> Updated metadata for PWA and Yu-Gi-Oh theme
 export const metadata: Metadata = {
   title: "Duel Links Catalog",
   description: "Comprehensive catalog of Yu-Gi-Oh Duel Links cards, decks, and meta tier lists",
-  // generator: "v0.app",
-  manifest: "/manifest.json",
   icons: {
     icon: [
       {
@@ -56,15 +54,20 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        {/* <CHANGE> Added PWA meta tags */}
         <meta name="application-name" content="Yu-Gi-Oh Catalog" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <meta name="apple-mobile-web-app-title" content="YGO Catalog" />
         <meta name="theme-color" content="#0a0e27" />
       </head>
-      <body className={`font-sans antialiased`}>
-        {children}
+      <body className={`font-sans antialiased bg-background text-foreground`}>
+        {/* --- HEADER GLOBAL --- */}
+        <Header />
+
+        <div className="pt-44 md:pt-24 min-h-screen"> 
+          {children}
+        </div>
+        
         <Analytics />
       </body>
     </html>

@@ -7,11 +7,11 @@ import { cn } from "@/lib/utils"
 export function Navigation() {
   const pathname = usePathname()
 
-  // Pastikan nama file icon di folder public sesuai ya
   const navItems = [
     { href: "/", icon: "/home.png", label: "Home" },
     { href: "/cards", icon: "/cards.png", label: "Cards" },
     { href: "/decks", icon: "/deck.png", label: "Decks" },
+    { href: "/skill", icon: "/Skill.png", label: "Skills" }, 
     { href: "/about", icon: "/about.png", label: "About" },
   ]
 
@@ -19,32 +19,28 @@ export function Navigation() {
     <nav className="fixed bottom-0 left-0 right-0 bg-black/90 border-t border-white/10 z-50 backdrop-blur-md pb-safe">
       <div className="max-w-4xl mx-auto flex items-center justify-around">
         {navItems.map((item) => {
-          const isActive = pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href))
+          const isActive = item.href === "/" 
+            ? pathname === "/" 
+            : pathname.startsWith(item.href)
 
           return (
             <Link
               key={item.href}
               href={item.href}
               className={cn(
-                "flex flex-col items-center justify-center gap-1 py-3 px-4 text-xs font-medium transition-all duration-200 group",
-                // Logic Text: Putih terang kalo aktif, abu-abu kalo diem, putih kalo hover
+                "flex flex-col items-center justify-center gap-1 py-3 px-2 text-[10px] sm:text-xs font-medium transition-all duration-200 group min-w-[60px]",
                 isActive ? "text-white" : "text-muted-foreground group-hover:text-white"
               )}
             >
-              {/* Container Icon */}
               <div className="w-6 h-6 relative flex items-center justify-center">
                 <img 
                   src={item.icon} 
                   alt={item.label}
                   className={cn(
                     "w-full h-full object-contain transition-all duration-300",
-                    
-                    // --- LOGIC WARNA ICON ---
                     isActive 
-                      ? "filter-none scale-110" // Kalo AKTIF: Warna Asli (Default)
+                      ? "filter-none scale-110" 
                       : "brightness-0 invert opacity-70 group-hover:filter-none group-hover:opacity-100 group-hover:scale-110" 
-                      // Kalo INAKTIF: Jadi Putih (brightness-0 invert)
-                      // Kalo KENA KURSOR (Hover): Balik ke Warna Asli (filter-none)
                   )}
                 />
               </div>

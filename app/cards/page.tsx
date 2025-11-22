@@ -46,7 +46,7 @@ function CardsContent() {
   }
 
   return (
-      <main className="min-h-screen bg-background pb-24 pt-20">
+      <main className="min-h-screen bg-background pb-24 pt-10">
         <div className="max-w-5xl mx-auto p-4 space-y-6">
         
         {/* --- INFO BAR --- */}

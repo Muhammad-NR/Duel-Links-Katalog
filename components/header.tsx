@@ -1,13 +1,14 @@
 "use client"
 
-import { useState, useEffect, Suspense } from "react" 
+import { useState, useEffect, Suspense } from "react"
 import { useRouter, useSearchParams, usePathname } from "next/navigation"
 import Link from "next/link"
 import { Search, Filter, X } from "lucide-react"
 
+// --- KOMPONEN ISI (LOGIC) ---
 function HeaderContent() {
   const router = useRouter()
-  const searchParams = useSearchParams() 
+  const searchParams = useSearchParams() // Logic yang bikin error kita taruh sini
   const pathname = usePathname()
 
   const [searchQuery, setSearchQuery] = useState("")
@@ -106,9 +107,10 @@ function HeaderContent() {
   )
 }
 
+// --- KOMPONEN WRAPPER (INI YG DI-EXPORT) ---
 export function Header() {
   return (
-    <Suspense fallback={<header className="fixed top-0 left-0 right-0 z-50 h-32 bg-black/90" />}>
+    <Suspense fallback={<div className="fixed top-0 left-0 right-0 z-50 h-24 bg-black/90" />}>
       <HeaderContent />
     </Suspense>
   )

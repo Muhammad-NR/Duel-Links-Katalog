@@ -4,16 +4,15 @@ import { Geist, Geist_Mono } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
 import { Header } from "@/components/header"
-import { Suspense } from "react" // <--- 1. JANGAN LUPA IMPORT INI
+import { Suspense } from "react" 
+export const dynamic = "force-dynamic"
 
 const _geist = Geist({ subsets: ["latin"] })
 const _geistMono = Geist_Mono({ subsets: ["latin"] })
 
-// ... (Metadata code kamu tetap sama, tidak perlu diubah) ...
 export const metadata: Metadata = {
   title: "Duel Links Catalog",
   description: "Comprehensive catalog of Yu-Gi-Oh Duel Links cards, decks, and meta tier lists",
-  // ... sisa metadata
 }
 
 export const viewport = {
@@ -42,7 +41,6 @@ export default function RootLayout({
       <body className={`font-sans antialiased bg-background text-foreground`}>
         
         {/* --- HEADER GLOBAL DI BUNGKUS SUSPENSE --- */}
-        {/* 2. Tambahkan Suspense di sini */}
         <Suspense fallback={<div className="h-16 bg-[#0a0e27]" />}>
            <Header />
         </Suspense>

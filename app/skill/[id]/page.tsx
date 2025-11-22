@@ -53,8 +53,8 @@ export default function SkillDetailPage() {
   const detailImageSrc = skill.image || (isUniversal ? "/Skill_Uni.png" : "/Skill.png")
 
   return (
-    <main className="min-h-screen pb-32 pt-6">
-      <div className="max-w-3xl mx-auto p-4">
+      <main className="min-h-screen bg-background pb-24 pt-6">
+        <div className="max-w-3xl mx-auto p-4">
         
         <Link href="/skill" className="inline-flex items-center gap-2 text-primary hover:text-accent mb-6">
           <ChevronLeft className="w-5 h-5" />

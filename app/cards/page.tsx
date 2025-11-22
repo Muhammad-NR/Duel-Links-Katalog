@@ -46,8 +46,8 @@ function CardsContent() {
   }
 
   return (
-    <main className="min-h-screen pb-32 pt-6">
-      <div className="max-w-5xl mx-auto p-4 space-y-6">
+      <main className="min-h-screen bg-background pb-24 pt-6">
+        <div className="max-w-5xl mx-auto p-4 space-y-6">
         
         {/* --- INFO BAR --- */}
         <div className="flex items-center justify-between pb-4 border-b border-white/10">
@@ -101,28 +101,37 @@ function CardsContent() {
         )}
 
         {totalPages > 1 && (
-          <div className="flex items-center justify-center gap-4 mt-8">
+          <div className="flex items-center justify-center gap-2 mt-8">
+            {/* Tombol PREVIOUS */}
             <Button
               variant="outline"
               onClick={() => handlePageChange(currentPage - 1)}
               disabled={currentPage === 1}
-              className="flex items-center gap-2"
+              className="flex items-center gap-1 px-3" // Nin, aku kecilin padding dikit biar muat
             >
               <ChevronLeft className="w-4 h-4" />
-              Previous
+              <span className="hidden sm:inline">Prev</span> {/* Text 'Prev' sembunyi di HP biar hemat tempat */}
             </Button>
 
-            <div className="flex items-center gap-2">
-              {Array.from({ length: Math.min(5, totalPages) }).map((_, i) => {
+            {/* LOGIKA NOMOR HALAMAN (MAX 3) */}
+            <div className="flex items-center gap-1">
+              {Array.from({ length: Math.min(3, totalPages) }).map((_, i) => {
                 let pageNum: number
-                if (totalPages <= 5) {
+                
+                // Logika matematika untuk geser angka (Window of 3)
+                if (totalPages <= 3) {
+                  // Kalau total halaman cuma dikit (kurang dari 3), urutin aja 1, 2, 3
                   pageNum = i + 1
-                } else if (currentPage <= 3) {
+                } else if (currentPage <= 2) {
+                  // Kalau lagi di halaman awal (1 atau 2), tetep tampilin 1, 2, 3
                   pageNum = i + 1
-                } else if (currentPage >= totalPages - 2) {
-                  pageNum = totalPages - 4 + i
+                } else if (currentPage >= totalPages - 1) {
+                  // Kalau lagi di halaman akhir, tampilin 3 angka terakhir
+                  pageNum = totalPages - 2 + i
                 } else {
-                  pageNum = currentPage - 2 + i
+                  // Kalau di tengah-tengah, posisikan current page di tengah (i=1)
+                  // Contoh current 5: jadi 4, 5, 6
+                  pageNum = currentPage - 1 + i
                 }
 
                 return (
@@ -130,7 +139,7 @@ function CardsContent() {
                     key={pageNum}
                     variant={currentPage === pageNum ? "default" : "outline"}
                     onClick={() => handlePageChange(pageNum)}
-                    className="w-10 h-10 p-0 font-bold"
+                    className="w-9 h-9 p-0 font-bold text-sm" // Ukuran tombol aku kecilin dikit (w-9)
                   >
                     {pageNum}
                   </Button>
@@ -138,17 +147,18 @@ function CardsContent() {
               })}
             </div>
 
+            {/* Tombol NEXT */}
             <Button
               variant="outline"
               onClick={() => handlePageChange(currentPage + 1)}
               disabled={currentPage === totalPages}
-              className="flex items-center gap-2"
+              className="flex items-center gap-1 px-3"
             >
-              Next
+              <span className="hidden sm:inline">Next</span>
               <ChevronRight className="w-4 h-4" />
             </Button>
           </div>
-        )}
+        )}    
       </div>
 
       <Navigation />

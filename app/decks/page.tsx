@@ -22,8 +22,8 @@ export default function DecksPage() {
   }
 
   return (
-    <main className="min-h-screen bg-background pb-24">
-      <div className="max-w-4xl mx-auto p-4 space-y-6">
+      <main className="min-h-screen bg-background pb-24 pt-6">
+        <div className="max-w-4xl mx-auto p-4 space-y-6">
         <div className="space-y-4 pt-4">
           <div>
             <h1 className="text-3xl font-bold mb-2">Meta Decks</h1>

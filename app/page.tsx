@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button"
 import { CARDS_DATA, DECKS_DATA } from "@/lib/data"
 import { Star } from "lucide-react"
 
+
 export default function Home() {
   const topMetaCards = CARDS_DATA.filter((card) => 
   ["42", "2", "3", "4", "25", "23"].includes(card.id))   
@@ -13,8 +14,8 @@ export default function Home() {
   ["1", "2", "3",].includes(deck.id))
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-background to-card pb-24">
-      {/* Header */}
+    <main className="min-h-screen bg-background pb-24 pt-6">
+        {/* Header */}
         <div className="pt-10 pl-3 md:pl-5 space-y-4 text-center md:text-left">
           <div className="space-y-2">
             <h1 className="text-4xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent inline-block">

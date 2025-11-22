@@ -11,9 +11,37 @@ const _geist = Geist({ subsets: ["latin"] })
 const _geistMono = Geist_Mono({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Duel Links Catalog",
+  title: "Yu-Gi-Oh Duel Links Catalog",
   description: "Comprehensive catalog of Yu-Gi-Oh Duel Links cards, decks, and meta tier lists",
+  manifest: "/manifest.json",
+  icons: {
+    icon: [
+      {
+        url: "YuGiOh_Duel_Links.png",
+        media: "(prefers-color-scheme: light)",
+      },
+      {
+        url: "YuGiOh_Duel_Links_Dark.png",
+        media: "(prefers-color-scheme: dark)",
+      },
+      {
+        url: "YuGiOh_Duel_Links.png",
+        type: "image/svg+xml",
+      },
+    ],
+    apple: "/apple-icon.png",
+  },
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "Yu-Gi-Oh Duel Links",
+  },
+  formatDetection: {
+    telephone: false,
+  },
+
 }
+
 
 export const viewport = {
   width: "device-width",

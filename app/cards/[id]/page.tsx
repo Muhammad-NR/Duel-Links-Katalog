@@ -30,8 +30,8 @@ export default function CardDetailPage() {
   const imageSrc = card.image || `/.jpg?height=800&width=600&query=${encodeURIComponent(card.name)} yugioh card`
 
   return (
-    <main className="min-h-screen bg-background pb-24">
-      <div className="max-w-2xl mx-auto p-4">
+      <main className="min-h-screen bg-background pb-24 pt-6">
+        <div className="max-w-2xl mx-auto p-4">
         <Link href="/cards" className="inline-flex items-center gap-2 text-primary hover:text-accent mb-6 mt-4">
           <ChevronLeft className="w-5 h-5" />
           <span>Back to Cards</span>

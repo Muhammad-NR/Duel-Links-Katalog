@@ -1,20 +1,18 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, Suspense } from "react" 
 import { useRouter, useSearchParams, usePathname } from "next/navigation"
 import Link from "next/link"
 import { Search, Filter, X } from "lucide-react"
 
-export function Header() {
+function HeaderContent() {
   const router = useRouter()
-  const searchParams = useSearchParams()
+  const searchParams = useSearchParams() 
   const pathname = usePathname()
 
-  // State untuk nilai search & filter
   const [searchQuery, setSearchQuery] = useState("")
   const [selectedType, setSelectedType] = useState("all")
 
-  // Sinkronisasi State dengan URL (Biar kalau di-refresh tetep ada)
   useEffect(() => {
     const q = searchParams.get("q") || ""
     const type = searchParams.get("type") || "all"
@@ -22,15 +20,12 @@ export function Header() {
     setSelectedType(type)
   }, [searchParams])
 
-  // Fungsi Jalanin Search/Filter
   const handleUpdateParams = (newSearch: string, newType: string) => {
-    // Kalau user lagi BUKAN di halaman cards, paksa pindah ke /cards
     if (pathname !== "/cards") {
       router.push(`/cards?q=${newSearch}&type=${newType}`)
       return
     }
     
-    // Kalau udah di /cards, update URL aja (shallow routing)
     router.replace(`/cards?q=${newSearch}&type=${newType}`)
   }
 
@@ -108,5 +103,13 @@ export function Header() {
         </div>
       </div>
     </header>
+  )
+}
+
+export function Header() {
+  return (
+    <Suspense fallback={<header className="fixed top-0 left-0 right-0 z-50 h-32 bg-black/90" />}>
+      <HeaderContent />
+    </Suspense>
   )
 }

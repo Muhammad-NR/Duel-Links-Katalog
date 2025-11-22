@@ -1,12 +1,14 @@
-import Link from 'next/link'
- 
-export default function NotFound() {
+import React from 'react';
+import { useSearchParams } from 'next/navigation';
+
+const Custom404 = () => {
+  const searchParams = useSearchParams();
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen text-center px-4">
-      <h2 className="text-4xl font-bold mb-4">404 - Page Not Found</h2>
-      <Link href="/" className="px-4 py-2 bg-blue-600 rounded text-white">
-        Back Home
-      </Link>
+    <div>
+      <h1>404 - Page Not Found</h1>
+      <p>The page you are looking for does not exist.</p>
     </div>
-  )
-}
+  );
+};
+
+export default Custom404;

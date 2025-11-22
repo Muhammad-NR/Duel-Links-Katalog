@@ -8,7 +8,7 @@ import { Search, Filter, X } from "lucide-react"
 // --- KOMPONEN ISI (LOGIC) ---
 function HeaderContent() {
   const router = useRouter()
-  const searchParams = useSearchParams() // Logic yang bikin error kita taruh sini
+  const searchParams = useSearchParams() 
   const pathname = usePathname()
 
   const [searchQuery, setSearchQuery] = useState("")
@@ -107,10 +107,9 @@ function HeaderContent() {
   )
 }
 
-// --- KOMPONEN WRAPPER (INI YG DI-EXPORT) ---
 export function Header() {
   return (
-    <Suspense fallback={<div className="fixed top-0 left-0 right-0 z-50 h-24 bg-black/90" />}>
+    <Suspense fallback={<div className="fixed top-0 left-0 right-0 z-50 h-24 bg-black/90">Loading...</div>}>
       <HeaderContent />
     </Suspense>
   )

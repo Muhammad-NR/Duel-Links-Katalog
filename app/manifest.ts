@@ -6,19 +6,21 @@ export default function manifest(): MetadataRoute.Manifest {
     short_name: 'Duel Links DB',
     description: 'Catalog for Yu-Gi-Oh! Duel Links Cards and Meta Decks',
     start_url: '/',
-    display: 'standalone', 
-    background_color: '#09090b', 
-    theme_color: '#09090b',      
+    display: 'standalone',
+    background_color: '#09090b',
+    theme_color: '#09090b',
     icons: [
       {
-        src: '/icon.jpg',
+        src: '/icon.png', 
         sizes: '192x192',
-        type: 'image/jpg',
+        type: 'image/png', 
+        purpose: 'maskable', 
       },
       {
-        src: '/icon.jpg',
+        src: '/icon.png', 
         sizes: '512x512',
-        type: 'image/jpg',
+        type: 'image/png', 
+        purpose: 'maskable',
       },
     ],
   }

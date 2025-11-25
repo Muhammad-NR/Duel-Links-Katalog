@@ -68,12 +68,11 @@ export default function RootLayout({
       </head>
       <body className={`font-sans antialiased bg-background text-foreground`}>
         
-        {/* --- HEADER GLOBAL DI BUNGKUS SUSPENSE --- */}
         <Suspense fallback={<div className="h-16 bg-[#0a0e27]" />}>
            <Header />
         </Suspense>
 
-        <div className="pt-44 md:pt-24 min-h-screen"> 
+        <div className="pt-20 md:pt-10 min-h-screen"> 
           {children}
         </div>
         

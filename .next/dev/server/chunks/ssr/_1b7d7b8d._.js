@@ -16,7 +16,6 @@ function cn(...inputs) {
     return (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$tailwind$2d$merge$2f$dist$2f$bundle$2d$mjs$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["twMerge"])((0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$clsx$2f$dist$2f$clsx$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["clsx"])(inputs));
 }
 const getBaseUrl = ()=>{
-    // Cek kalau ada env variable (biasanya pas di Vercel)
     if (process.env.NEXT_PUBLIC_API_URL) {
         return process.env.NEXT_PUBLIC_API_URL;
     }
@@ -204,17 +203,14 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navi
 function DeckDetailPage() {
     const params = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useParams"])();
     const id = params.id;
-    // 1. STATE MANAGEMENT
     const [deck, setDeck] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
     const [allCards, setAllCards] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])([]);
     const [allSkills, setAllSkills] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])([]);
     const [isLoading, setIsLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(true);
-    // 2. FETCHING DATA (Paralel 3 API sekaligus biar ngebut)
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
         const fetchAllData = async ()=>{
             try {
                 setIsLoading(true);
-                // Jalanin 3 request berbarengan
                 const [deckRes, cardsRes, skillsRes] = await Promise.all([
                     fetch(`/api/decks/${id}`),
                     fetch('/api/cards'),
@@ -242,11 +238,9 @@ function DeckDetailPage() {
     }, [
         id
     ]);
-    // 3. Helper buat cari data kartu dari array API (Pengganti import static)
     const getCardByName = (name)=>{
         return allCards.find((c)=>c.name === name);
     };
-    // 4. Helper buat cari skill
     const skillData = deck ? allSkills.find((s)=>s.name === deck.skill) : null;
     const skillImageSrc = deck?.skillType === "Universal" ? "/Skill_Uni.png" : "/Skill.png";
     const tierColors = {
@@ -255,7 +249,6 @@ function DeckDetailPage() {
         B: "bg-yellow-500/20 text-yellow-400 border-yellow-500/50",
         C: "bg-blue-500/20 text-blue-400 border-blue-500/50"
     };
-    // 5. LOADING UI
     if (isLoading) {
         return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
             className: "min-h-screen bg-background pb-24 pt-10 flex items-center justify-center",
@@ -296,7 +289,6 @@ function DeckDetailPage() {
             columnNumber: 7
         }, this);
     }
-    // 6. NOT FOUND UI
     if (!deck) {
         return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
             className: "min-h-screen bg-background flex items-center justify-center pb-24",
@@ -344,7 +336,6 @@ function DeckDetailPage() {
             columnNumber: 7
         }, this);
     }
-    // 7. MAIN UI (Sama persis kayak punya lu sebelumnya)
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
         className: "min-h-screen bg-background pb-24 pt-6",
         children: [

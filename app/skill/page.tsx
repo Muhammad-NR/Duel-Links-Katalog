@@ -4,18 +4,16 @@ import { useMemo, Suspense, useState, useEffect } from "react"
 import Link from "next/link"
 import { Navigation } from "@/components/navigation"
 import { useSearchParams } from "next/navigation"
-import { Skill } from "@/lib/def" // Import Type
+import { Skill } from "@/lib/def"
 import { Loader2 } from "lucide-react"
 
 function SkillListContent() {
   const searchParams = useSearchParams()
   const search = searchParams.get("q") || ""
 
-  // 1. STATE FOR API DATA
   const [skills, setSkills] = useState<Skill[]>([])
   const [isLoading, setIsLoading] = useState(true)
 
-  // 2. FETCH API
   useEffect(() => {
     const fetchSkills = async () => {
       try {
@@ -33,7 +31,6 @@ function SkillListContent() {
     fetchSkills()
   }, [])
 
-  // 3. FILTER LOGIC (Updated to use 'skills' state)
   const filteredSkills = useMemo(() => {
     return skills.filter((skill) => {
       return (
@@ -42,9 +39,8 @@ function SkillListContent() {
         (skill.character && skill.character.toLowerCase().includes(search.toLowerCase()))
       )
     })
-  }, [search, skills]) // Add skills to dependency
+  }, [search, skills])
 
-  // 4. LOADING STATE
   if (isLoading) {
     return (
       <main className="min-h-screen bg-background pb-24 pt-10 flex items-center justify-center">

@@ -16,7 +16,6 @@ function cn(...inputs) {
     return (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$tailwind$2d$merge$2f$dist$2f$bundle$2d$mjs$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["twMerge"])((0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$clsx$2f$dist$2f$clsx$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["clsx"])(inputs));
 }
 const getBaseUrl = ()=>{
-    // Cek kalau ada env variable (biasanya pas di Vercel)
     if (process.env.NEXT_PUBLIC_API_URL) {
         return process.env.NEXT_PUBLIC_API_URL;
     }
@@ -142,10 +141,8 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$re
 function SkillListContent() {
     const searchParams = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useSearchParams"])();
     const search = searchParams.get("q") || "";
-    // 1. STATE FOR API DATA
     const [skills, setSkills] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])([]);
     const [isLoading, setIsLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(true);
-    // 2. FETCH API
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
         const fetchSkills = async ()=>{
             try {
@@ -162,7 +159,6 @@ function SkillListContent() {
         };
         fetchSkills();
     }, []);
-    // 3. FILTER LOGIC (Updated to use 'skills' state)
     const filteredSkills = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useMemo"])(()=>{
         return skills.filter((skill)=>{
             return skill.name.toLowerCase().includes(search.toLowerCase()) || skill.description.toLowerCase().includes(search.toLowerCase()) || skill.character && skill.character.toLowerCase().includes(search.toLowerCase());
@@ -170,9 +166,7 @@ function SkillListContent() {
     }, [
         search,
         skills
-    ]) // Add skills to dependency
-    ;
-    // 4. LOADING STATE
+    ]);
     if (isLoading) {
         return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
             className: "min-h-screen bg-background pb-24 pt-10 flex items-center justify-center",
@@ -184,7 +178,7 @@ function SkillListContent() {
                             className: "w-10 h-10 animate-spin text-yellow-500"
                         }, void 0, false, {
                             fileName: "[project]/app/skill/page.tsx",
-                            lineNumber: 52,
+                            lineNumber: 48,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -192,24 +186,24 @@ function SkillListContent() {
                             children: "Loading Skills..."
                         }, void 0, false, {
                             fileName: "[project]/app/skill/page.tsx",
-                            lineNumber: 53,
+                            lineNumber: 49,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/app/skill/page.tsx",
-                    lineNumber: 51,
+                    lineNumber: 47,
                     columnNumber: 10
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$navigation$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Navigation"], {}, void 0, false, {
                     fileName: "[project]/app/skill/page.tsx",
-                    lineNumber: 55,
+                    lineNumber: 51,
                     columnNumber: 10
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/app/skill/page.tsx",
-            lineNumber: 50,
+            lineNumber: 46,
             columnNumber: 7
         }, this);
     }
@@ -227,7 +221,7 @@ function SkillListContent() {
                                 children: "Skill List"
                             }, void 0, false, {
                                 fileName: "[project]/app/skill/page.tsx",
-                                lineNumber: 65,
+                                lineNumber: 61,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -238,13 +232,13 @@ function SkillListContent() {
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/skill/page.tsx",
-                                lineNumber: 66,
+                                lineNumber: 62,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/skill/page.tsx",
-                        lineNumber: 64,
+                        lineNumber: 60,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -261,7 +255,7 @@ function SkillListContent() {
                                                     className: `absolute inset-0 opacity-30 z-0 ${skill.type === 'Universal' ? 'bg-blue-900' : 'bg-yellow-900'}`
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/skill/page.tsx",
-                                                    lineNumber: 78,
+                                                    lineNumber: 74,
                                                     columnNumber: 21
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
@@ -270,20 +264,20 @@ function SkillListContent() {
                                                     className: "w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-110 z-10 relative"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/skill/page.tsx",
-                                                    lineNumber: 80,
+                                                    lineNumber: 76,
                                                     columnNumber: 21
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                     className: "absolute inset-0 bg-gradient-to-t from-card via-card/60 to-transparent z-20 pointer-events-none"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/skill/page.tsx",
-                                                    lineNumber: 90,
+                                                    lineNumber: 86,
                                                     columnNumber: 21
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/skill/page.tsx",
-                                            lineNumber: 76,
+                                            lineNumber: 72,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -297,7 +291,7 @@ function SkillListContent() {
                                                             children: skill.name
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/skill/page.tsx",
-                                                            lineNumber: 95,
+                                                            lineNumber: 91,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -305,13 +299,13 @@ function SkillListContent() {
                                                             children: skill.type === 'Universal' ? 'UNI' : 'CHAR'
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/skill/page.tsx",
-                                                            lineNumber: 98,
+                                                            lineNumber: 94,
                                                             columnNumber: 21
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/app/skill/page.tsx",
-                                                    lineNumber: 94,
+                                                    lineNumber: 90,
                                                     columnNumber: 19
                                                 }, this),
                                                 skill.character && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -322,7 +316,7 @@ function SkillListContent() {
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/app/skill/page.tsx",
-                                                    lineNumber: 108,
+                                                    lineNumber: 104,
                                                     columnNumber: 21
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -330,29 +324,29 @@ function SkillListContent() {
                                                     children: skill.description
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/skill/page.tsx",
-                                                    lineNumber: 113,
+                                                    lineNumber: 109,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/skill/page.tsx",
-                                            lineNumber: 93,
+                                            lineNumber: 89,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/skill/page.tsx",
-                                    lineNumber: 74,
+                                    lineNumber: 70,
                                     columnNumber: 15
                                 }, this)
                             }, skill.id, false, {
                                 fileName: "[project]/app/skill/page.tsx",
-                                lineNumber: 73,
+                                lineNumber: 69,
                                 columnNumber: 13
                             }, this))
                     }, void 0, false, {
                         fileName: "[project]/app/skill/page.tsx",
-                        lineNumber: 71,
+                        lineNumber: 67,
                         columnNumber: 9
                     }, this),
                     filteredSkills.length === 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -363,7 +357,7 @@ function SkillListContent() {
                                 children: "No skills found"
                             }, void 0, false, {
                                 fileName: "[project]/app/skill/page.tsx",
-                                lineNumber: 124,
+                                lineNumber: 120,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -371,30 +365,30 @@ function SkillListContent() {
                                 children: "Try searching for a character or skill name"
                             }, void 0, false, {
                                 fileName: "[project]/app/skill/page.tsx",
-                                lineNumber: 125,
+                                lineNumber: 121,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/skill/page.tsx",
-                        lineNumber: 123,
+                        lineNumber: 119,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/skill/page.tsx",
-                lineNumber: 62,
+                lineNumber: 58,
                 columnNumber: 9
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$navigation$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Navigation"], {}, void 0, false, {
                 fileName: "[project]/app/skill/page.tsx",
-                lineNumber: 130,
+                lineNumber: 126,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/skill/page.tsx",
-        lineNumber: 61,
+        lineNumber: 57,
         columnNumber: 7
     }, this);
 }
@@ -405,17 +399,17 @@ function SkillPage() {
             children: "Loading skills..."
         }, void 0, false, {
             fileName: "[project]/app/skill/page.tsx",
-            lineNumber: 136,
+            lineNumber: 132,
             columnNumber: 25
         }, void 0),
         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(SkillListContent, {}, void 0, false, {
             fileName: "[project]/app/skill/page.tsx",
-            lineNumber: 137,
+            lineNumber: 133,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/app/skill/page.tsx",
-        lineNumber: 136,
+        lineNumber: 132,
         columnNumber: 5
     }, this);
 }

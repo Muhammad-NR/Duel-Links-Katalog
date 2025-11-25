@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import Link from "next/link"
 import { Navigation } from "@/components/navigation"
 import { Button } from "@/components/ui/button"
-import { ArrowRight, Loader2, Star, Trophy, Sparkles } from "lucide-react"
+import { ArrowRight, Loader2, Star, Trophy } from "lucide-react"
 import { Card, Deck } from "@/lib/def"
 
 export default function Home() {
@@ -24,8 +24,8 @@ export default function Home() {
 
         if (cardsRes.ok) {
             const data: Card[] = await cardsRes.json()
-          const targetIds = [70, 25, 3, 20,]
-          const Rare = data.filter(card => targetIds.includes(parseInt(card.id)))
+            const targetIds = [70, 25, 3, 20]
+            const Rare = data.filter(card => targetIds.includes(parseInt(card.id)))
             setFeaturedCards(Rare.length > 0 ? Rare : data.slice(0, 4))
         }
 
@@ -45,6 +45,7 @@ export default function Home() {
     fetchData()
   }, [])
 
+  // 3. LOADING SCREEN
   if (isLoading) {
     return (
       <main className="min-h-screen bg-black flex flex-col items-center justify-center gap-4">
@@ -56,34 +57,31 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-black pb-24">
-      
-      {/* --- HERO SECTION (TAMPILAN LEBIH RAPAT) --- */}
-      <div className="relative h-[280px] flex items-center justify-center overflow-hidden border-b border-white/10">
-        {/* Background Image/Gradient */}
+
+      <div className="relative w-full py-24 md:py-0 md:h-[600px] flex items-center justify-center overflow-hidden border-b border-white/10">
+        
         <div className="absolute inset-0 bg-[url('/icon.jpg')] bg-cover bg-center opacity-30 blur-sm" />
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent" />
         
-        <div className="relative z-10 text-center px-4 max-w-4xl">
+        <div className="relative z-10 text-center px-6 max-w-5xl mt-6 md:mt-0">
           
-          {/* JUDUL UTAMA - Style Gradasi Simpel */}
-          <h1 className="text-5xl md:text-7xl font-bold mb-2 text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-red-600 pb-2 drop-shadow-sm">
-            Yu-Gi-Oh Duel Links
+          <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-red-600 drop-shadow-sm leading-tight">
+            Yu-Gi-Oh <br className="md:hidden" /> Duel Links
           </h1>
           
-          <p className="text-lg md:text-xl text-muted-foreground mb-6 max-w-2xl mx-auto font-medium">
+          <p className="text-base md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto font-medium">
             Explore cards, discover meta decks, and master the game
           </p>
           
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-             <Link href="/cards">
-                {/* UPDATE: Tombol Browse Cards jadi bg biasa, hover biru */}
-                <Button size="lg" className="h-12 px-20 text-base bg-white/10 hover:bg-blue-600 text-white transition-all hover:scale-105 font-bold rounded-full border border-white/10 hover:border-blue-600">
+          {/* TOMBOL ACTION */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full">
+             <Link href="/cards" className="w-full sm:w-auto">
+                <Button size="lg" className="w-full sm:w-auto h-12 px-10 text-base bg-white/10 hover:bg-blue-600 text-white transition-all font-bold rounded-full border border-white/10 hover:border-blue-600">
                    Browse Cards
                 </Button>
              </Link>
-             <Link href="/decks">
-                {/* UPDATE: Tombol Meta Decks hover jadi biru juga */}
-                <Button size="lg" className="h-12 px-20 text-base bg-white/10 hover:bg-red-600 text-white transition-all hover:scale-105 font-bold rounded-full border border-white/10 hover:border-red-600">
+             <Link href="/decks" className="w-full sm:w-auto">
+                <Button size="lg" className="w-full sm:w-auto h-12 px-10 text-base bg-white/10 hover:bg-red-600 text-white transition-all font-bold rounded-full border border-white/10 hover:border-red-600">
                    See Meta Decks
                 </Button>
              </Link>
@@ -97,29 +95,30 @@ export default function Home() {
         <section>
           <div className="flex items-center justify-between mb-8">
             <div>
-                <h2 className="text-3xl font-bold flex items-center gap-2 text-white">
+                <h2 className="text-2xl md:text-3xl font-bold flex items-center gap-2 text-white">
                     <Star className="w-6 h-6 text-yellow-500 fill-yellow-500" /> 
                     Popular Cards
                 </h2>
-                <p className="text-muted-foreground mt-1">Most played cards this week</p>
+                <p className="text-sm md:text-base text-muted-foreground mt-1">Most played cards this week</p>
             </div>
             <Link href="/cards">
-                <Button variant="ghost" className="group text-white hover:text-white">
+                <Button variant="ghost" className="group text-white hover:text-white text-sm md:text-base">
                     View All <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </Button>
             </Link>
           </div>
           
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
             {featuredCards.map((card) => (
                 <Link key={card.id} href={`/cards/${card.id}`} className="group">
-                    <div className="relative aspect-[420/613] rounded-xl overflow-hidden border border-white/10 group-hover:border-blue-500 transition-all group-hover:scale-105 shadow-lg">
+                    <div className="relative aspect-[420/613] rounded-xl overflow-hidden border border-white/10 group-hover:border-blue-500 transition-all group-hover:scale-105 shadow-lg bg-secondary/10">
                         <img 
                             src={card.image || "/bg-card.webp"} 
                             alt={card.name} 
                             className="w-full h-full object-cover"
+                            loading="lazy"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
                             <div>
                                 <p className="text-white font-bold text-sm line-clamp-1">{card.name}</p>
                                 <p className="text-blue-300 text-xs font-bold">{card.rarity}</p>
@@ -135,14 +134,14 @@ export default function Home() {
         <section>
           <div className="flex items-center justify-between mb-8">
             <div>
-                <h2 className="text-3xl font-bold flex items-center gap-2 text-white">
+                <h2 className="text-2xl md:text-3xl font-bold flex items-center gap-2 text-white">
                     <Trophy className="w-6 h-6 text-orange-500 fill-orange-500" /> 
                     Top Meta Decks
                 </h2>
-                <p className="text-muted-foreground mt-1">Dominating the current ranked season</p>
+                <p className="text-sm md:text-base text-muted-foreground mt-1">Dominating the ranked season</p>
             </div>
             <Link href="/decks">
-                <Button variant="ghost" className="group text-white  hover:text-white">
+                <Button variant="ghost" className="group text-white hover:text-white text-sm md:text-base">
                     Tier List <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </Button>
             </Link>
@@ -169,7 +168,7 @@ export default function Home() {
                          {/* Mini Card Preview */}
                          <div className="flex gap-2 pt-4 border-t border-white/5">
                              {deck.mainCards?.slice(0, 3).map((c, i) => (
-                                 <div key={i} className="h-13 w-9 bg-black/50 rounded border border-white/10 flex items-center justify-center text-[8px] text-center overflow-hidden">
+                                 <div key={i} className="h-12 w-8 bg-black/50 rounded border border-white/10 flex items-center justify-center text-[8px] text-center overflow-hidden">
                                     <div className="w-full h-full bg-cover bg-center opacity-70" style={{ backgroundImage: `url('/bg-card.webp')` }} />
                                  </div>
                              ))}

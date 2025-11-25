@@ -6,25 +6,25 @@ import { Navigation } from "@/components/navigation"
 import { Button } from "@/components/ui/button"
 import { ChevronLeft, Loader2 } from "lucide-react"
 import { useParams } from "next/navigation"
-import { Deck, Card, Skill } from "@/lib/def" // Import tipe data
+import { Deck, Card, Skill } from "@/lib/def"
 
 export default function DeckDetailPage() {
   const params = useParams()
   const id = params.id as string
 
-  // 1. STATE MANAGEMENT
+
   const [deck, setDeck] = useState<Deck | null>(null)
   const [allCards, setAllCards] = useState<Card[]>([])
   const [allSkills, setAllSkills] = useState<Skill[]>([])
   const [isLoading, setIsLoading] = useState(true)
 
-  // 2. FETCHING DATA (Paralel 3 API sekaligus biar ngebut)
+
   useEffect(() => {
     const fetchAllData = async () => {
       try {
         setIsLoading(true)
         
-        // Jalanin 3 request berbarengan
+
         const [deckRes, cardsRes, skillsRes] = await Promise.all([
           fetch(`/api/decks/${id}`),
           fetch('/api/cards'),
@@ -56,12 +56,12 @@ export default function DeckDetailPage() {
     if (id) fetchAllData()
   }, [id])
 
-  // 3. Helper buat cari data kartu dari array API (Pengganti import static)
+
   const getCardByName = (name: string) => {
     return allCards.find((c) => c.name === name)
   }
 
-  // 4. Helper buat cari skill
+
   const skillData = deck ? allSkills.find((s) => s.name === deck.skill) : null
   const skillImageSrc = deck?.skillType === "Universal" ? "/Skill_Uni.png" : "/Skill.png"
 
@@ -72,7 +72,7 @@ export default function DeckDetailPage() {
     C: "bg-blue-500/20 text-blue-400 border-blue-500/50",
   }
 
-  // 5. LOADING UI
+
   if (isLoading) {
     return (
       <main className="min-h-screen bg-background pb-24 pt-10 flex items-center justify-center">
@@ -85,7 +85,7 @@ export default function DeckDetailPage() {
     )
   }
 
-  // 6. NOT FOUND UI
+
   if (!deck) {
     return (
       <main className="min-h-screen bg-background flex items-center justify-center pb-24">
@@ -100,7 +100,7 @@ export default function DeckDetailPage() {
     )
   }
 
-  // 7. MAIN UI (Sama persis kayak punya lu sebelumnya)
+
   return (
       <main className="min-h-screen bg-background pb-24 pt-6">
         <div className="max-w-5xl mx-auto p-4">

@@ -4,9 +4,9 @@ import { useMemo, Suspense, useState, useEffect } from "react"
 import Link from "next/link"
 import { Navigation } from "@/components/navigation"
 import { Button } from "@/components/ui/button"
-import { ChevronLeft, ChevronRight, Loader2 } from "lucide-react" // Tambah icon Loader2
+import { ChevronLeft, ChevronRight, Loader2 } from "lucide-react" 
 import { useSearchParams, useRouter } from "next/navigation"
-import { Card } from "@/lib/def" // Pastikan import tipe data Card
+import { Card } from "@/lib/def"
 
 const CARDS_PER_PAGE = 9
 
@@ -14,11 +14,9 @@ function CardsContent() {
   const searchParams = useSearchParams()
   const router = useRouter()
 
-  // 1. STATE BARU: Untuk nampung data dari API
   const [cardsData, setCardsData] = useState<Card[]>([])
   const [isLoading, setIsLoading] = useState(true)
 
-  // 2. FETCH DATA: Ambil dari API saat komponen di-load
   useEffect(() => {
       const fetchCards = async () => {
         try {
@@ -27,8 +25,8 @@ function CardsContent() {
           
           const data = await res.json()
           
-          console.log("DATA DARI API:", data) // <--- TAMBAHIN INI
-          console.log("JUMLAH DATA:", data.length) // <--- TAMBAHIN INI
+          console.log("DATA DARI API:", data) 
+          console.log("JUMLAH DATA:", data.length) 
           
           setCardsData(data)
         } catch (error) {
@@ -45,7 +43,6 @@ function CardsContent() {
   const pageParam = searchParams.get("page")
   const currentPage = pageParam ? parseInt(pageParam) : 1
 
-  // 3. UPDATE FILTER: Gunakan 'cardsData' (state), bukan 'CARDS_DATA' (file)
   const filteredCards = useMemo(() => {
     return cardsData.filter((card) => {
       const matchesSearch =
@@ -56,7 +53,7 @@ function CardsContent() {
       
       return matchesSearch && matchesType
     })
-  }, [search, typeFilter, cardsData]) // Tambahkan cardsData ke dependency
+  }, [search, typeFilter, cardsData]) 
 
   const totalPages = Math.ceil(filteredCards.length / CARDS_PER_PAGE)
   const startIndex = (currentPage - 1) * CARDS_PER_PAGE
@@ -72,7 +69,6 @@ function CardsContent() {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
-  // 4. LOADING STATE: Tampilkan loading sebelum data muncul
   if (isLoading) {
     return (
       <main className="min-h-screen bg-background pb-24 pt-10 flex items-center justify-center">
@@ -87,8 +83,7 @@ function CardsContent() {
 
   return (
       <main className="min-h-screen bg-background pb-24 pt-10">
-        <div className="max-w-5xl mx-auto p-4 space-y-6">
-        
+        <div className="max-w-5xl mx-auto px-4 pt-2 pb-8 md:p-7 space-y-6">        
         {/* --- INFO BAR --- */}
         <div className="flex items-center justify-between pb-4 border-b border-white/10">
             <h1 className="text-2xl font-bold">Card Catalog</h1>

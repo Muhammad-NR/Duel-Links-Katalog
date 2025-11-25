@@ -59,14 +59,16 @@ function manifest() {
         theme_color: '#09090b',
         icons: [
             {
-                src: '/icon.jpg',
+                src: '/icon.png',
                 sizes: '192x192',
-                type: 'image/jpg'
+                type: 'image/png',
+                purpose: 'any maskable'
             },
             {
-                src: '/icon.jpg',
+                src: '/icon.png',
                 sizes: '512x512',
-                type: 'image/jpg'
+                type: 'image/png',
+                purpose: 'any maskable'
             }
         ]
     };

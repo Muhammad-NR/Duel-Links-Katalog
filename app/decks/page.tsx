@@ -4,18 +4,18 @@ import { useState, useEffect } from "react"
 import Link from "next/link"
 import { Navigation } from "@/components/navigation"
 import { Button } from "@/components/ui/button"
-import { Deck } from "@/lib/def" // Ganti import data jadi tipe data
-import { ChevronRight, Loader2 } from "lucide-react" // Tambah Loader2
+import { Deck } from "@/lib/def"
+import { ChevronRight, Loader2 } from "lucide-react"
 
 export default function DecksPage() {
-  // 1. State buat nampung data API
+
   const [decks, setDecks] = useState<Deck[]>([])
   const [isLoading, setIsLoading] = useState(true)
   
-  // State fitur lama lu (Filter Tier)
+
   const [selectedTier, setSelectedTier] = useState("all")
 
-  // 2. Fetch Data dari API (Pengganti import DECKS_DATA)
+
   useEffect(() => {
     const fetchDecks = async () => {
       try {
@@ -35,7 +35,7 @@ export default function DecksPage() {
 
   const tiers = ["all", "S", "A", "B", "C"]
 
-  // 3. Logic Filter (Sekarang filter dari state 'decks', bukan variabel DECKS_DATA)
+
   const filteredDecks = selectedTier === "all" ? decks : decks.filter((d) => d.tier === selectedTier)
 
   const tierColors = {
@@ -45,7 +45,7 @@ export default function DecksPage() {
     C: "bg-blue-500/20 text-blue-400 border-blue-500/50",
   }
 
-  // 4. Loading State
+
   if (isLoading) {
     return (
       <main className="min-h-screen bg-background pb-24 pt-10 flex items-center justify-center">

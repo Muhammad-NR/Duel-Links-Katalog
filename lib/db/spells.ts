@@ -251,5 +251,15 @@ You can only use each effect of "Sky Striker Airspace - Area Zero" once per turn
     attribute: "Field Spell",
     deckTypes: ["Sky Striker"],
     image: "/cards/spells/Sky Striker Airspace - Area Zero.jpg",
+  },
+  {
+    id: "84",
+    name: "Change of Heart",
+    type: "Spell",
+    rarity: "Ultra Rare",
+    description: `Target 1 monster your opponent controls; take control of it until the End Phase.`,
+    attribute: "Normal Spell",
+    deckTypes: ["Shinato's Judgment"],
+    image: "https://images.ygoprodeck.com/images/cards/4031928.jpg",
   }
 ]

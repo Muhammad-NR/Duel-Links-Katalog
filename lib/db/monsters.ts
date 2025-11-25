@@ -1,5 +1,6 @@
 import { Card } from "@/lib/def";
 
+
 export const MONSTER_CARDS: Card[] = [
   {
     id: "1",
@@ -738,5 +739,126 @@ export const MONSTER_CARDS: Card[] = [
     attribute: "Fire",
     deckTypes: ["Sky Striker"],
     image: "/cards/extra_deck/Sky Striker Ace - Kagari.jpg",
+  },
+  {
+    id: "46",
+    name: "Shinobaron Peacock",
+    type: "Monster",
+    rarity: "Ultra Rare",
+    description: `<b>[ Winged Beast / Ritual / Effect / Spirit ]</b>
+    You can Ritual Summon this card with "Shinobird's Calling".
+    \nMust be Ritual Summoned, and cannot be Special Summoned by other ways.
+    \nIf this card is Ritual Summoned: You can return up to 3 monsters your opponent controls to the hand, then you can Special Summon 1 Level 4 or lower Spirit monster from your hand, ignoring its Summoning conditions.
+    \nOnce per turn, during the End Phase, if this card was Special Summoned this turn: Return it to the hand, and if you do, Special Summon 2 "Shinobird Tokens" (Winged Beast-Type/WIND/Level 4/ATK 1500/DEF 1500).`,
+    atk: 3000,
+    def: 2500,
+    level: 8,
+    attribute: "Wind",
+    deckTypes: ["Shinato's Judgment"],
+    image: "https://images.ygoprodeck.com/images/cards/52900000.jpg",
+  },
+  {
+    id: "47",
+    name: "Shinobaroness Peacock",
+    type: "Monster",
+    rarity: "Ultra Rare",
+    description: `<b>[ Winged Beast / Ritual / Effect / Spirit ]</b>
+    You can Ritual Summon this card with "Shinobird's Calling".
+    \nMust be Ritual Summoned, and cannot be Special Summoned by other ways.
+    \nIf this card is Ritual Summoned: You can shuffle up to 3 Spell/Trap Cards your opponent controls into the Deck, then you can Special Summon 1 Level 4 or lower Spirit monster from your Deck, ignoring its Summoning conditions.
+    \nOnce per turn, during the End Phase, if this card was Special Summoned this turn: Return it to the hand, and if you do, Special Summon 2 "Shinobird Tokens" (Winged Beast-Type/WIND/Level 4/ATK 1500/DEF 1500).`,
+    atk: 2500,
+    def: 3000,
+    level: 8,
+    attribute: "Wind",
+    deckTypes: ["Shinato's Judgment"],
+    image: "https://images.ygoprodeck.com/images/cards/25415052.jpg",  
+  },
+  {
+    id: "48",
+    name: "Shinobaron Shade Peacock",
+    type: "Monster",
+    rarity: "Super Rare",
+    description: `<b>[ Winged Beast / Ritual / Spirit / Effect ]</b>
+    You can Ritual Summon this card with "Shinobird's Calling".
+    \nThis card's name becomes "Shinobaron Peacock" while in the hand or on the field.
+    \nYou can Tribute this Ritual Summoned card; add 1 Spirit monster and 1 Ritual Spell from your Deck to your hand.
+    \nYou can only use this effect of "Shinobaron Shade Peacock" once per turn.
+    \nOnce per turn, during the Standby Phase of the next turn after this card was banished: Special Summon this banished card.
+    \nOnce per turn, during the End Phase, if this card was Special Summoned this turn: Return this card to the hand.`,
+    atk: 2000,
+    def: 1500,
+    level: 4,
+    attribute: "Wind",
+    deckTypes: ["Shinato's Judgment"],
+    image: "https://images.ygoprodeck.com/images/cards/60823690.jpg",  
+  },
+  {
+    id: "49",
+    name: "Shinobaroness Shade Peacock",
+    type: "Monster",
+    rarity: "Super Rare",
+    description: `<b>[ Winged Beast / Ritual / Spirit / Effect ]</b>
+    You can Ritual Summon this card with "Shinobird's Calling".
+    \nThis card's name becomes "Shinobaroness Peacock" while in the hand or on the field.
+    \nIf this card is Ritual Summoned: You can add 1 Spell/Trap from your Deck to your hand that mentions "Spirit monster" in its text.
+    \nYou can only use this effect of "Shinobaroness Shade Peacock" once per turn.
+    \nOnce per turn, during the Standby Phase of the next turn after this card was banished: Special Summon this banished card.
+    \nOnce per turn, during the End Phase, if this card was Special Summoned this turn: Return this card to the hand.`,
+    atk: 1500,
+    def: 2000,
+    level: 4,
+    attribute: "Wind",
+    deckTypes: ["Shinato's Judgment"],
+    image: "https://images.ygoprodeck.com/images/cards/33325951.jpg",  
+  },
+  {
+    id: "50",
+    name: "Droll & Lock Bird",
+    type: "Monster",
+    rarity: "Ultra Rare",
+    description: `<b>[ Spellcaster / Effect ]</b>
+    If a card(s) is added from the Main Deck to your opponent's hand, except during the Draw Phase (Quick Effect): You can send this card from your hand to the GY; for the rest of this turn, cards cannot be added from either player's Main Deck to the hand.`,
+    atk: 0,
+    def: 0,
+    level: 1,
+    attribute: "Wind",
+    deckTypes: ["Shinato's Judgment"],
+    image: "https://images.ygoprodeck.com/images/cards/94145022.jpg",  
+  },
+  {
+    id: "51",
+    name: "Sakitama",
+    type: "Monster",
+    rarity: "Super Rare",
+    description: `<b>[ Fairy / Spirit / Effect ]</b>
+    Cannot be Special Summoned.
+    \nOnce per turn, during the End Phase, if this card was Normal Summoned or flipped face-up this turn: Return this card to the hand.
+    \nYou can only use each of the following effects of "Sakitama" once per turn.
+    \nYou can reveal this card in your hand; immediately after this effect resolves, Normal Summon 1 Spirit monster from your hand.
+    \nIf this card is Tributed: Target 1 Spirit monster in your GY; add it to your hand.`,
+    atk: 400,
+    def: 900,
+    level: 4,
+    attribute: "Earth",
+    deckTypes: ["Shinato's Judgment"],
+    image: "https://images.ygoprodeck.com/images/cards/67972302.jpg",  
+  },
+  {
+    id: "52",
+    name: "Shinato, King of a Higher Plane",
+    type: "Monster",
+    rarity: "Ultra Rare",
+    description: `<b>[ Fairy / Ritual / Effect ]</b>
+    This card can only be Ritual Summoned with the Ritual Spell Card, "Shinato's Ark".
+    \nYou must also Tribute monsters whose total Levels equal 8 or more from the field or your hand.
+    \nWhen this card destroys a Defense Position monster and sends it to the Graveyard as a result of battle, inflict damage to your opponent's Life Points equal to the original ATK of the destroyed monster.`,
+    atk: 3300,
+    def: 3000,
+    level: 8,
+    attribute: "Earth",
+    deckTypes: ["Shinato's Judgment"],
+    image: "https://images.ygoprodeck.com/images/cards/86327225.jpg", 
   }
+  
 ]

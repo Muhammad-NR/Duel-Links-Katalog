@@ -63,5 +63,19 @@ export const SKILLS_DATA: Skill[] = [
     image: "/Skill_Uni.png",
     characterImage: "/characters/sky-striker.png",
     relatedCards: ["38", "41", "42", "74"],
+  },
+  {
+    id: "s6",
+    name: "Shinato's Judgment",
+    character: "Noah Kaiba",
+    type: "Character",
+    description: `You can only use this Skill's second, third, and fourth effect once per Duel.
+    1: You cannot Normal or Special Summon (excluding Special Summons from the Extra Deck) Effect monsters, except Spirit monsters. You can Normal Summon/Set twice a turn.
+    2: Reveal up to 2 Spirit monsters or Ritual Spell Cards from your hand and shuffle 1 card from your hand into the Deck. Then for the number of cards revealed this way, add Spirit monsters or Spell/Trap Cards that mention Spirit monsters from the Deck to your hand.
+    3: If only your opponent controls a monster, play 1 "Shinato, King of a Higher Plane" from outside your Deck in face-down Defense Position. (Its battle position can be changed.)
+    4: If you control "Shinato, King of a Higher Plane", add 1 "Change of Heart" from outside your Deck to your hand.`,
+    image: "/Skill.png",
+    characterImage: "https://ms.yugipedia.com//b/b4/NoahKaiba-DULI-CutIn.png",
+    relatedCards: ["52", "84"],
   }
 ]

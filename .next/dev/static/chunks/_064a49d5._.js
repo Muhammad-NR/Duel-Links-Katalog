@@ -900,6 +900,140 @@ const MONSTER_CARDS = [
             "Sky Striker"
         ],
         image: "/cards/extra_deck/Sky Striker Ace - Kagari.jpg"
+    },
+    {
+        id: "46",
+        name: "Shinobaron Peacock",
+        type: "Monster",
+        rarity: "Ultra Rare",
+        description: `<b>[ Winged Beast / Ritual / Effect / Spirit ]</b>
+    You can Ritual Summon this card with "Shinobird's Calling".
+    \nMust be Ritual Summoned, and cannot be Special Summoned by other ways.
+    \nIf this card is Ritual Summoned: You can return up to 3 monsters your opponent controls to the hand, then you can Special Summon 1 Level 4 or lower Spirit monster from your hand, ignoring its Summoning conditions.
+    \nOnce per turn, during the End Phase, if this card was Special Summoned this turn: Return it to the hand, and if you do, Special Summon 2 "Shinobird Tokens" (Winged Beast-Type/WIND/Level 4/ATK 1500/DEF 1500).`,
+        atk: 3000,
+        def: 2500,
+        level: 8,
+        attribute: "Wind",
+        deckTypes: [
+            "Shinato's Judgment"
+        ],
+        image: "https://images.ygoprodeck.com/images/cards/52900000.jpg"
+    },
+    {
+        id: "47",
+        name: "Shinobaroness Peacock",
+        type: "Monster",
+        rarity: "Ultra Rare",
+        description: `<b>[ Winged Beast / Ritual / Effect / Spirit ]</b>
+    You can Ritual Summon this card with "Shinobird's Calling".
+    \nMust be Ritual Summoned, and cannot be Special Summoned by other ways.
+    \nIf this card is Ritual Summoned: You can shuffle up to 3 Spell/Trap Cards your opponent controls into the Deck, then you can Special Summon 1 Level 4 or lower Spirit monster from your Deck, ignoring its Summoning conditions.
+    \nOnce per turn, during the End Phase, if this card was Special Summoned this turn: Return it to the hand, and if you do, Special Summon 2 "Shinobird Tokens" (Winged Beast-Type/WIND/Level 4/ATK 1500/DEF 1500).`,
+        atk: 2500,
+        def: 3000,
+        level: 8,
+        attribute: "Wind",
+        deckTypes: [
+            "Shinato's Judgment"
+        ],
+        image: "https://images.ygoprodeck.com/images/cards/25415052.jpg"
+    },
+    {
+        id: "48",
+        name: "Shinobaron Shade Peacock",
+        type: "Monster",
+        rarity: "Super Rare",
+        description: `<b>[ Winged Beast / Ritual / Spirit / Effect ]</b>
+    You can Ritual Summon this card with "Shinobird's Calling".
+    \nThis card's name becomes "Shinobaron Peacock" while in the hand or on the field.
+    \nYou can Tribute this Ritual Summoned card; add 1 Spirit monster and 1 Ritual Spell from your Deck to your hand.
+    \nYou can only use this effect of "Shinobaron Shade Peacock" once per turn.
+    \nOnce per turn, during the Standby Phase of the next turn after this card was banished: Special Summon this banished card.
+    \nOnce per turn, during the End Phase, if this card was Special Summoned this turn: Return this card to the hand.`,
+        atk: 2000,
+        def: 1500,
+        level: 4,
+        attribute: "Wind",
+        deckTypes: [
+            "Shinato's Judgment"
+        ],
+        image: "https://images.ygoprodeck.com/images/cards/60823690.jpg"
+    },
+    {
+        id: "49",
+        name: "Shinobaroness Shade Peacock",
+        type: "Monster",
+        rarity: "Super Rare",
+        description: `<b>[ Winged Beast / Ritual / Spirit / Effect ]</b>
+    You can Ritual Summon this card with "Shinobird's Calling".
+    \nThis card's name becomes "Shinobaroness Peacock" while in the hand or on the field.
+    \nIf this card is Ritual Summoned: You can add 1 Spell/Trap from your Deck to your hand that mentions "Spirit monster" in its text.
+    \nYou can only use this effect of "Shinobaroness Shade Peacock" once per turn.
+    \nOnce per turn, during the Standby Phase of the next turn after this card was banished: Special Summon this banished card.
+    \nOnce per turn, during the End Phase, if this card was Special Summoned this turn: Return this card to the hand.`,
+        atk: 1500,
+        def: 2000,
+        level: 4,
+        attribute: "Wind",
+        deckTypes: [
+            "Shinato's Judgment"
+        ],
+        image: "https://images.ygoprodeck.com/images/cards/33325951.jpg"
+    },
+    {
+        id: "50",
+        name: "Droll & Lock Bird",
+        type: "Monster",
+        rarity: "Ultra Rare",
+        description: `<b>[ Spellcaster / Effect ]</b>
+    If a card(s) is added from the Main Deck to your opponent's hand, except during the Draw Phase (Quick Effect): You can send this card from your hand to the GY; for the rest of this turn, cards cannot be added from either player's Main Deck to the hand.`,
+        atk: 0,
+        def: 0,
+        level: 1,
+        attribute: "Wind",
+        deckTypes: [
+            "Shinato's Judgment"
+        ],
+        image: "https://images.ygoprodeck.com/images/cards/94145022.jpg"
+    },
+    {
+        id: "51",
+        name: "Sakitama",
+        type: "Monster",
+        rarity: "Super Rare",
+        description: `<b>[ Fairy / Spirit / Effect ]</b>
+    Cannot be Special Summoned.
+    \nOnce per turn, during the End Phase, if this card was Normal Summoned or flipped face-up this turn: Return this card to the hand.
+    \nYou can only use each of the following effects of "Sakitama" once per turn.
+    \nYou can reveal this card in your hand; immediately after this effect resolves, Normal Summon 1 Spirit monster from your hand.
+    \nIf this card is Tributed: Target 1 Spirit monster in your GY; add it to your hand.`,
+        atk: 400,
+        def: 900,
+        level: 4,
+        attribute: "Earth",
+        deckTypes: [
+            "Shinato's Judgment"
+        ],
+        image: "https://images.ygoprodeck.com/images/cards/67972302.jpg"
+    },
+    {
+        id: "52",
+        name: "Shinato, King of a Higher Plane",
+        type: "Monster",
+        rarity: "Ultra Rare",
+        description: `<b>[ Fairy / Ritual / Effect ]</b>
+    This card can only be Ritual Summoned with the Ritual Spell Card, "Shinato's Ark".
+    \nYou must also Tribute monsters whose total Levels equal 8 or more from the field or your hand.
+    \nWhen this card destroys a Defense Position monster and sends it to the Graveyard as a result of battle, inflict damage to your opponent's Life Points equal to the original ATK of the destroyed monster.`,
+        atk: 3300,
+        def: 3000,
+        level: 8,
+        attribute: "Earth",
+        deckTypes: [
+            "Shinato's Judgment"
+        ],
+        image: "https://images.ygoprodeck.com/images/cards/86327225.jpg"
     }
 ];
 if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
@@ -1212,6 +1346,18 @@ You can only use each effect of "Sky Striker Airspace - Area Zero" once per turn
             "Sky Striker"
         ],
         image: "/cards/spells/Sky Striker Airspace - Area Zero.jpg"
+    },
+    {
+        id: "84",
+        name: "Change of Heart",
+        type: "Spell",
+        rarity: "Ultra Rare",
+        description: `Target 1 monster your opponent controls; take control of it until the End Phase.`,
+        attribute: "Normal Spell",
+        deckTypes: [
+            "Shinato's Judgment"
+        ],
+        image: "https://images.ygoprodeck.com/images/cards/4031928.jpg"
     }
 ];
 if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
@@ -1459,6 +1605,59 @@ const DECKS_DATA = [
             "Sky Striker Ace - Kagari"
         ],
         strategy: `The Sky Striker deck is a control-oriented deck that focuses on maintaining field presence through the use of Link Monsters and powerful Spell Cards. The deck's main strategy revolves around the Sky Striker Ace monsters, which can be summoned using the various Sky Striker Spell Cards.`
+    },
+    {
+        id: "4",
+        name: "Shinobird",
+        tier: "S",
+        description: "Most broken deck for meta right now!",
+        skill: "Shinato's Judgment",
+        skillType: "Character",
+        winRate: 70,
+        usage: 30,
+        difficulty: 10,
+        popularity: 4.8,
+        mainCards: [
+            "Shinobaron Peacock",
+            "Shinobaroness Peacock",
+            "Shinobaroness Peacock",
+            "Shinobaron Shade Peacock",
+            "Shinobaroness Shade Peacock",
+            "Droll & Lock Bird",
+            "Droll & Lock Bird",
+            "Droll & Lock Bird",
+            "Sakitama",
+            "Yaksha",
+            "Aratama",
+            "Aratama",
+            "Nikitama",
+            "Nikitama",
+            "Nikitama",
+            "Shinobird's Calling",
+            "Shinobird's Calling",
+            "Shinobird's Calling",
+            "Pre-Preparation of Rites",
+            "Pre-Preparation of Rites",
+            "Pre-Preparation of Rites",
+            "Forbidden Droplet",
+            "Forbidden Droplet",
+            "Forbidden Droplet",
+            "Stars Align Above the Shrine",
+            "Book of Eclipse",
+            "Stars Align across the Milky Way"
+        ],
+        extraCards: [
+            "Abyss Dweller",
+            "Tornado Dragon",
+            "Decode Talker Heatsoul",
+            "Knightmare Unicorn",
+            "Salamangreat Almiraj",
+            "Underworld Goddess of the Closed World",
+            "I:P Masquerena",
+            "Knightmare Phoenix",
+            "Security Dragon"
+        ],
+        strategy: `A version a bit different from the standard, full combo can end board with an Amano-Iwato equipped with Mirror of Yata, and a second Amano on hand. First Amano will bait books or droplet, and hopefully opponent wont have an answer for the second one.`
     }
 ];
 if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
@@ -1559,6 +1758,23 @@ const SKILLS_DATA = [
             "42",
             "74"
         ]
+    },
+    {
+        id: "s6",
+        name: "Shinato's Judgment",
+        character: "Noah Kaiba",
+        type: "Character",
+        description: `You can only use this Skill's second, third, and fourth effect once per Duel.
+    1: You cannot Normal or Special Summon (excluding Special Summons from the Extra Deck) Effect monsters, except Spirit monsters. You can Normal Summon/Set twice a turn.
+    2: Reveal up to 2 Spirit monsters or Ritual Spell Cards from your hand and shuffle 1 card from your hand into the Deck. Then for the number of cards revealed this way, add Spirit monsters or Spell/Trap Cards that mention Spirit monsters from the Deck to your hand.
+    3: If only your opponent controls a monster, play 1 "Shinato, King of a Higher Plane" from outside your Deck in face-down Defense Position. (Its battle position can be changed.)
+    4: If you control "Shinato, King of a Higher Plane", add 1 "Change of Heart" from outside your Deck to your hand.`,
+        image: "/Skill.png",
+        characterImage: "https://ms.yugipedia.com//b/b4/NoahKaiba-DULI-CutIn.png",
+        relatedCards: [
+            "52",
+            "84"
+        ]
     }
 ];
 if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
@@ -1612,7 +1828,6 @@ function cn(...inputs) {
     return (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$tailwind$2d$merge$2f$dist$2f$bundle$2d$mjs$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["twMerge"])((0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$clsx$2f$dist$2f$clsx$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["clsx"])(inputs));
 }
 const getBaseUrl = ()=>{
-    // Cek kalau ada env variable (biasanya pas di Vercel)
     if (__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$polyfills$2f$process$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].env.NEXT_PUBLIC_API_URL) {
         return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$polyfills$2f$process$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].env.NEXT_PUBLIC_API_URL;
     }
@@ -1712,18 +1927,40 @@ var _s = __turbopack_context__.k.signature();
 ;
 ;
 ;
+// --- KONFIGURASI YANG AKAN DIUPLOAD ---
+const HOME_CONFIG = {
+    // ID Kartu Populer Default (sesuaikan dengan ID yang kamu miliki di data.ts)
+    featuredCardIds: [
+        70,
+        25,
+        3,
+        20
+    ],
+    // Tier Meta Default
+    metaTargetTiers: [
+        'S',
+        'A'
+    ],
+    lastUpdated: new Date().toISOString()
+};
 function UploadPage() {
     _s();
     const [status, setStatus] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("Ready to upload");
     const [isLoading, setIsLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
     const handleUpload = async ()=>{
-        if (!confirm("Yakin mau upload semua data ke Firebase?")) return;
+        if (!confirm("Yakin mau upload semua data ke Firebase? Ini akan menimpa data yang sudah ada!")) return;
         setIsLoading(true);
         setStatus("Connecting to Google Cloud...");
         try {
             await (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$firebase$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["initFirebase"])();
             const batch = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$firebase$2f$firestore$2f$dist$2f$index$2e$esm$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["writeBatch"])(__TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$firebase$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["db"]);
             let count = 0;
+            // 1. UPLOAD HOME CONFIG
+            setStatus("Preparing Home Config...");
+            const configRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$firebase$2f$firestore$2f$dist$2f$index$2e$esm$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["doc"])(__TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$firebase$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["db"], 'artifacts', __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$firebase$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["appId"], 'public', 'home_config'); // Pastikan path ini benar
+            batch.set(configRef, HOME_CONFIG);
+            count++;
+            // 2. UPLOAD DATA MASTER LAINNYA
             setStatus(`Preparing ${__TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$data$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["CARDS_DATA"].length} Cards...`);
             __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$data$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["CARDS_DATA"].forEach((card)=>{
                 const ref = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$firebase$2f$firestore$2f$dist$2f$index$2e$esm$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["doc"])(__TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$firebase$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["db"], 'artifacts', __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$firebase$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["appId"], 'public', 'data', 'cards', card.id);
@@ -1763,22 +2000,22 @@ function UploadPage() {
                         children: "Firebase Seeder"
                     }, void 0, false, {
                         fileName: "[project]/app/upload/page.tsx",
-                        lineNumber: 62,
-                        columnNumber: 13
+                        lineNumber: 78,
+                        columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                         className: "text-gray-400 max-w-md",
                         children: "Upload data lokal (`lib/data.ts`) ke Google Firestore Cloud."
                     }, void 0, false, {
                         fileName: "[project]/app/upload/page.tsx",
-                        lineNumber: 63,
-                        columnNumber: 13
+                        lineNumber: 79,
+                        columnNumber: 17
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/upload/page.tsx",
-                lineNumber: 61,
-                columnNumber: 9
+                lineNumber: 77,
+                columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "bg-gray-900 p-6 rounded-xl border border-gray-800 w-full max-w-md text-center shadow-2xl",
@@ -1791,21 +2028,21 @@ function UploadPage() {
                                 children: "Log Status:"
                             }, void 0, false, {
                                 fileName: "[project]/app/upload/page.tsx",
-                                lineNumber: 70,
-                                columnNumber: 17
+                                lineNumber: 86,
+                                columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                 children: status
                             }, void 0, false, {
                                 fileName: "[project]/app/upload/page.tsx",
-                                lineNumber: 71,
-                                columnNumber: 17
+                                lineNumber: 87,
+                                columnNumber: 21
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/upload/page.tsx",
-                        lineNumber: 69,
-                        columnNumber: 13
+                        lineNumber: 85,
+                        columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
                         onClick: handleUpload,
@@ -1819,32 +2056,32 @@ function UploadPage() {
                                     className: "w-4 h-4 animate-spin"
                                 }, void 0, false, {
                                     fileName: "[project]/app/upload/page.tsx",
-                                    lineNumber: 82,
-                                    columnNumber: 25
+                                    lineNumber: 98,
+                                    columnNumber: 29
                                 }, this),
                                 " Uploading..."
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/upload/page.tsx",
-                            lineNumber: 81,
-                            columnNumber: 21
+                            lineNumber: 97,
+                            columnNumber: 25
                         }, this) : "🚀 START UPLOAD"
                     }, void 0, false, {
                         fileName: "[project]/app/upload/page.tsx",
-                        lineNumber: 74,
-                        columnNumber: 13
+                        lineNumber: 90,
+                        columnNumber: 17
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/upload/page.tsx",
-                lineNumber: 68,
-                columnNumber: 9
+                lineNumber: 84,
+                columnNumber: 13
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/upload/page.tsx",
-        lineNumber: 60,
-        columnNumber: 5
+        lineNumber: 76,
+        columnNumber: 9
     }, this);
 }
 _s(UploadPage, "9GbBu09A5A0a1t3yxs5EGEsCO6Q=");

@@ -224,6 +224,10 @@ var _s = __turbopack_context__.k.signature();
 ;
 ;
 ;
+// Helper function untuk mengacak array (digunakan sebagai fallback)
+const shuffleArray = (array)=>{
+    return array.sort(()=>0.5 - Math.random());
+};
 function Home() {
     _s();
     const [featuredCards, setFeaturedCards] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]);
@@ -235,29 +239,59 @@ function Home() {
                 "Home.useEffect.fetchData": async ()=>{
                     try {
                         setIsLoading(true);
-                        const [cardsRes, decksRes] = await Promise.all([
+                        const [cardsRes, decksRes, configRes] = await Promise.all([
                             fetch('/api/cards'),
-                            fetch('/api/decks')
+                            fetch('/api/decks'),
+                            fetch('/api/config')
                         ]);
+                        const cardsData = cardsRes.ok ? await cardsRes.json() : [];
+                        const decksData = decksRes.ok ? await decksRes.json() : [];
+                        const configData = configRes.ok ? await configRes.json() : {};
+                        // --- LOGIKA POPULAR CARDS (Berdasarkan Config/Random) ---
                         if (cardsRes.ok) {
-                            const data = await cardsRes.json();
-                            const targetIds = [
-                                70,
-                                25,
-                                3,
-                                20
-                            ];
-                            const Rare = data.filter({
-                                "Home.useEffect.fetchData.Rare": (card)=>targetIds.includes(parseInt(card.id))
-                            }["Home.useEffect.fetchData.Rare"]);
-                            setFeaturedCards(Rare.length > 0 ? Rare : data.slice(0, 4));
+                            const configuredIds = configData.featuredCardIds || [];
+                            let featured = [];
+                            if (configuredIds.length > 0) {
+                                featured = cardsData.filter({
+                                    "Home.useEffect.fetchData": (card)=>configuredIds.includes(parseInt(card.id))
+                                }["Home.useEffect.fetchData"]);
+                            }
+                            if (featured.length === 0) {
+                                featured = shuffleArray(cardsData).slice(0, 4);
+                            }
+                            setFeaturedCards(featured);
                         }
+                        // --- LOGIKA TOP META DECKS (KOREKSI LOGIKA PRIORITAS DECK) ---
                         if (decksRes.ok) {
-                            const data = await decksRes.json();
-                            const sTier = data.filter({
-                                "Home.useEffect.fetchData.sTier": (d)=>d.tier === 'S' || d.tier === 'A'
-                            }["Home.useEffect.fetchData.sTier"]).slice(0, 3);
-                            setTopDecks(sTier.length > 0 ? sTier : data.slice(0, 3));
+                            const configuredDeckIds = configData.featuredDeckIds || [];
+                            let topMeta = [];
+                            if (configuredDeckIds.length > 0) {
+                                // PRIORITAS 1: Ambil Deck berdasarkan ID spesifik (Mempertahankan urutan ID)
+                                topMeta = configuredDeckIds.map({
+                                    "Home.useEffect.fetchData": (id)=>decksData.find({
+                                            "Home.useEffect.fetchData": (d)=>d.id === id
+                                        }["Home.useEffect.fetchData"])
+                                }["Home.useEffect.fetchData"]).filter({
+                                    "Home.useEffect.fetchData": (d)=>d !== undefined
+                                }["Home.useEffect.fetchData"]).slice(0, 3); // Ambil maks 3
+                            }
+                            if (topMeta.length === 0) {
+                                // PRIORITAS 2 (Fallback): Filter berdasarkan Tier S atau A
+                                const targetTiers = configData.metaTargetTiers || [
+                                    'S',
+                                    'A'
+                                ];
+                                topMeta = decksData.filter({
+                                    "Home.useEffect.fetchData": (d)=>targetTiers.includes(d.tier)
+                                }["Home.useEffect.fetchData"]).sort({
+                                    "Home.useEffect.fetchData": ()=>0.5 - Math.random()
+                                }["Home.useEffect.fetchData"]).slice(0, 3);
+                            }
+                            // Final Fallback
+                            if (topMeta.length === 0) {
+                                topMeta = decksData.slice(0, 4);
+                            }
+                            setTopDecks(topMeta);
                         }
                     } catch (error) {
                         console.error("Error fetching home data:", error);
@@ -269,7 +303,6 @@ function Home() {
             fetchData();
         }
     }["Home.useEffect"], []);
-    // 3. LOADING SCREEN
     if (isLoading) {
         return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
             className: "min-h-screen bg-black flex flex-col items-center justify-center gap-4",
@@ -278,22 +311,22 @@ function Home() {
                     className: "w-12 h-12 animate-spin text-blue-500"
                 }, void 0, false, {
                     fileName: "[project]/app/page.tsx",
-                    lineNumber: 52,
-                    columnNumber: 10
+                    lineNumber: 102,
+                    columnNumber: 17
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                     className: "text-muted-foreground animate-pulse",
                     children: "Entering Duel World..."
                 }, void 0, false, {
                     fileName: "[project]/app/page.tsx",
-                    lineNumber: 53,
-                    columnNumber: 10
+                    lineNumber: 103,
+                    columnNumber: 17
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/app/page.tsx",
-            lineNumber: 51,
-            columnNumber: 7
+            lineNumber: 101,
+            columnNumber: 13
         }, this);
     }
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
@@ -306,15 +339,15 @@ function Home() {
                         className: "absolute inset-0 bg-[url('/icon.jpg')] bg-cover bg-center opacity-30 blur-sm"
                     }, void 0, false, {
                         fileName: "[project]/app/page.tsx",
-                        lineNumber: 63,
-                        columnNumber: 9
+                        lineNumber: 114,
+                        columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent"
                     }, void 0, false, {
                         fileName: "[project]/app/page.tsx",
-                        lineNumber: 64,
-                        columnNumber: 9
+                        lineNumber: 115,
+                        columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "relative z-10 text-center px-6 max-w-5xl mt-6 md:mt-0",
@@ -327,23 +360,23 @@ function Home() {
                                         className: "md:hidden"
                                     }, void 0, false, {
                                         fileName: "[project]/app/page.tsx",
-                                        lineNumber: 69,
-                                        columnNumber: 22
+                                        lineNumber: 120,
+                                        columnNumber: 34
                                     }, this),
                                     " Duel Links"
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/page.tsx",
-                                lineNumber: 68,
-                                columnNumber: 11
+                                lineNumber: 119,
+                                columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                 className: "text-base md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto font-medium",
                                 children: "Explore cards, discover meta decks, and master the game"
                             }, void 0, false, {
                                 fileName: "[project]/app/page.tsx",
-                                lineNumber: 72,
-                                columnNumber: 11
+                                lineNumber: 123,
+                                columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "flex flex-col sm:flex-row items-center justify-center gap-4 w-full",
@@ -357,13 +390,13 @@ function Home() {
                                             children: "Browse Cards"
                                         }, void 0, false, {
                                             fileName: "[project]/app/page.tsx",
-                                            lineNumber: 79,
-                                            columnNumber: 17
+                                            lineNumber: 130,
+                                            columnNumber: 29
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/app/page.tsx",
-                                        lineNumber: 78,
-                                        columnNumber: 14
+                                        lineNumber: 129,
+                                        columnNumber: 25
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                                         href: "/decks",
@@ -374,31 +407,31 @@ function Home() {
                                             children: "See Meta Decks"
                                         }, void 0, false, {
                                             fileName: "[project]/app/page.tsx",
-                                            lineNumber: 84,
-                                            columnNumber: 17
+                                            lineNumber: 135,
+                                            columnNumber: 29
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/app/page.tsx",
-                                        lineNumber: 83,
-                                        columnNumber: 14
+                                        lineNumber: 134,
+                                        columnNumber: 25
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/page.tsx",
-                                lineNumber: 77,
-                                columnNumber: 11
+                                lineNumber: 128,
+                                columnNumber: 21
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/page.tsx",
-                        lineNumber: 66,
-                        columnNumber: 9
+                        lineNumber: 117,
+                        columnNumber: 17
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/page.tsx",
-                lineNumber: 61,
-                columnNumber: 7
+                lineNumber: 112,
+                columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "max-w-6xl mx-auto px-4 py-12 space-y-16",
@@ -417,29 +450,29 @@ function Home() {
                                                         className: "w-6 h-6 text-yellow-500 fill-yellow-500"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/page.tsx",
-                                                        lineNumber: 99,
-                                                        columnNumber: 21
+                                                        lineNumber: 150,
+                                                        columnNumber: 33
                                                     }, this),
                                                     "Popular Cards"
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/page.tsx",
-                                                lineNumber: 98,
-                                                columnNumber: 17
+                                                lineNumber: 149,
+                                                columnNumber: 29
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                                 className: "text-sm md:text-base text-muted-foreground mt-1",
                                                 children: "Most played cards this week"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/page.tsx",
-                                                lineNumber: 102,
-                                                columnNumber: 17
+                                                lineNumber: 153,
+                                                columnNumber: 29
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/page.tsx",
-                                        lineNumber: 97,
-                                        columnNumber: 13
+                                        lineNumber: 148,
+                                        columnNumber: 25
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                                         href: "/cards",
@@ -452,25 +485,25 @@ function Home() {
                                                     className: "ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/page.tsx",
-                                                    lineNumber: 106,
-                                                    columnNumber: 30
+                                                    lineNumber: 157,
+                                                    columnNumber: 42
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/page.tsx",
-                                            lineNumber: 105,
-                                            columnNumber: 17
+                                            lineNumber: 156,
+                                            columnNumber: 29
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/app/page.tsx",
-                                        lineNumber: 104,
-                                        columnNumber: 13
+                                        lineNumber: 155,
+                                        columnNumber: 25
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/page.tsx",
-                                lineNumber: 96,
-                                columnNumber: 11
+                                lineNumber: 147,
+                                columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6",
@@ -487,8 +520,8 @@ function Home() {
                                                     loading: "lazy"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/page.tsx",
-                                                    lineNumber: 115,
-                                                    columnNumber: 25
+                                                    lineNumber: 166,
+                                                    columnNumber: 37
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                     className: "absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4",
@@ -499,49 +532,49 @@ function Home() {
                                                                 children: card.name
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/page.tsx",
-                                                                lineNumber: 123,
-                                                                columnNumber: 33
+                                                                lineNumber: 174,
+                                                                columnNumber: 45
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                                                 className: "text-blue-300 text-xs font-bold",
                                                                 children: card.rarity
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/page.tsx",
-                                                                lineNumber: 124,
-                                                                columnNumber: 33
+                                                                lineNumber: 175,
+                                                                columnNumber: 45
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/page.tsx",
-                                                        lineNumber: 122,
-                                                        columnNumber: 29
+                                                        lineNumber: 173,
+                                                        columnNumber: 41
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/page.tsx",
-                                                    lineNumber: 121,
-                                                    columnNumber: 25
+                                                    lineNumber: 172,
+                                                    columnNumber: 37
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/page.tsx",
-                                            lineNumber: 114,
-                                            columnNumber: 21
+                                            lineNumber: 165,
+                                            columnNumber: 33
                                         }, this)
                                     }, card.id, false, {
                                         fileName: "[project]/app/page.tsx",
-                                        lineNumber: 113,
-                                        columnNumber: 17
+                                        lineNumber: 164,
+                                        columnNumber: 29
                                     }, this))
                             }, void 0, false, {
                                 fileName: "[project]/app/page.tsx",
-                                lineNumber: 111,
-                                columnNumber: 11
+                                lineNumber: 162,
+                                columnNumber: 21
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/page.tsx",
-                        lineNumber: 95,
-                        columnNumber: 9
+                        lineNumber: 146,
+                        columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
                         children: [
@@ -557,29 +590,29 @@ function Home() {
                                                         className: "w-6 h-6 text-orange-500 fill-orange-500"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/page.tsx",
-                                                        lineNumber: 138,
-                                                        columnNumber: 21
+                                                        lineNumber: 189,
+                                                        columnNumber: 33
                                                     }, this),
                                                     "Top Meta Decks"
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/page.tsx",
-                                                lineNumber: 137,
-                                                columnNumber: 17
+                                                lineNumber: 188,
+                                                columnNumber: 29
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                                 className: "text-sm md:text-base text-muted-foreground mt-1",
                                                 children: "Dominating the ranked season"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/page.tsx",
-                                                lineNumber: 141,
-                                                columnNumber: 17
+                                                lineNumber: 192,
+                                                columnNumber: 29
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/page.tsx",
-                                        lineNumber: 136,
-                                        columnNumber: 13
+                                        lineNumber: 187,
+                                        columnNumber: 25
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                                         href: "/decks",
@@ -592,25 +625,25 @@ function Home() {
                                                     className: "ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/page.tsx",
-                                                    lineNumber: 145,
-                                                    columnNumber: 31
+                                                    lineNumber: 196,
+                                                    columnNumber: 43
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/page.tsx",
-                                            lineNumber: 144,
-                                            columnNumber: 17
+                                            lineNumber: 195,
+                                            columnNumber: 29
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/app/page.tsx",
-                                        lineNumber: 143,
-                                        columnNumber: 13
+                                        lineNumber: 194,
+                                        columnNumber: 25
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/page.tsx",
-                                lineNumber: 135,
-                                columnNumber: 11
+                                lineNumber: 186,
+                                columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "grid md:grid-cols-3 gap-6",
@@ -632,8 +665,8 @@ function Home() {
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/app/page.tsx",
-                                                                    lineNumber: 156,
-                                                                    columnNumber: 34
+                                                                    lineNumber: 207,
+                                                                    columnNumber: 45
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                     className: "flex flex-col items-end",
@@ -646,8 +679,8 @@ function Home() {
                                                                             ]
                                                                         }, void 0, true, {
                                                                             fileName: "[project]/app/page.tsx",
-                                                                            lineNumber: 160,
-                                                                            columnNumber: 38
+                                                                            lineNumber: 211,
+                                                                            columnNumber: 49
                                                                         }, this),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                                             className: "text-xs text-muted-foreground",
@@ -657,42 +690,42 @@ function Home() {
                                                                             ]
                                                                         }, void 0, true, {
                                                                             fileName: "[project]/app/page.tsx",
-                                                                            lineNumber: 161,
-                                                                            columnNumber: 38
+                                                                            lineNumber: 212,
+                                                                            columnNumber: 49
                                                                         }, this)
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/app/page.tsx",
-                                                                    lineNumber: 159,
-                                                                    columnNumber: 34
+                                                                    lineNumber: 210,
+                                                                    columnNumber: 45
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/app/page.tsx",
-                                                            lineNumber: 155,
-                                                            columnNumber: 30
+                                                            lineNumber: 206,
+                                                            columnNumber: 41
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
                                                             className: "text-xl font-bold mb-2 text-white group-hover:text-orange-400 transition-colors",
                                                             children: deck.name
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/page.tsx",
-                                                            lineNumber: 164,
-                                                            columnNumber: 30
+                                                            lineNumber: 215,
+                                                            columnNumber: 41
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                                             className: "text-muted-foreground text-sm line-clamp-2 mb-4",
                                                             children: deck.description
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/page.tsx",
-                                                            lineNumber: 165,
-                                                            columnNumber: 30
+                                                            lineNumber: 216,
+                                                            columnNumber: 41
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/app/page.tsx",
-                                                    lineNumber: 154,
-                                                    columnNumber: 26
+                                                    lineNumber: 205,
+                                                    columnNumber: 37
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                     className: "flex gap-2 pt-4 border-t border-white/5",
@@ -706,66 +739,66 @@ function Home() {
                                                                     }
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/page.tsx",
-                                                                    lineNumber: 172,
-                                                                    columnNumber: 37
+                                                                    lineNumber: 223,
+                                                                    columnNumber: 49
                                                                 }, this)
                                                             }, i, false, {
                                                                 fileName: "[project]/app/page.tsx",
-                                                                lineNumber: 171,
-                                                                columnNumber: 34
+                                                                lineNumber: 222,
+                                                                columnNumber: 45
                                                             }, this)),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                             className: "h-12 w-8 flex items-center justify-center text-xs text-muted-foreground font-bold bg-secondary/30 rounded border border-white/5",
                                                             children: "+"
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/page.tsx",
-                                                            lineNumber: 175,
-                                                            columnNumber: 30
+                                                            lineNumber: 226,
+                                                            columnNumber: 41
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/app/page.tsx",
-                                                    lineNumber: 169,
-                                                    columnNumber: 26
+                                                    lineNumber: 220,
+                                                    columnNumber: 37
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/page.tsx",
-                                            lineNumber: 153,
-                                            columnNumber: 22
+                                            lineNumber: 204,
+                                            columnNumber: 33
                                         }, this)
                                     }, deck.id, false, {
                                         fileName: "[project]/app/page.tsx",
-                                        lineNumber: 152,
-                                        columnNumber: 18
+                                        lineNumber: 203,
+                                        columnNumber: 29
                                     }, this))
                             }, void 0, false, {
                                 fileName: "[project]/app/page.tsx",
-                                lineNumber: 150,
-                                columnNumber: 11
+                                lineNumber: 201,
+                                columnNumber: 21
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/page.tsx",
-                        lineNumber: 134,
-                        columnNumber: 9
+                        lineNumber: 185,
+                        columnNumber: 17
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/page.tsx",
-                lineNumber: 92,
-                columnNumber: 7
+                lineNumber: 143,
+                columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$navigation$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Navigation"], {}, void 0, false, {
                 fileName: "[project]/app/page.tsx",
-                lineNumber: 187,
-                columnNumber: 7
+                lineNumber: 238,
+                columnNumber: 13
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/page.tsx",
-        lineNumber: 59,
-        columnNumber: 5
+        lineNumber: 109,
+        columnNumber: 9
     }, this);
 }
 _s(Home, "Q5Y3c9alWojIsucTxuui4BnL9/c=");

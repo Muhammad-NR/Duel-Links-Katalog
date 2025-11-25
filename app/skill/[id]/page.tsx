@@ -1,50 +1,99 @@
 "use client"
 
-import { useMemo } from "react"
+import { useMemo, useState, useEffect } from "react"
 import Link from "next/link"
 import { Navigation } from "@/components/navigation"
 import { Button } from "@/components/ui/button"
-import { ChevronLeft } from "lucide-react"
-import { SKILLS_DATA, CARDS_DATA } from "@/lib/data"
+import { ChevronLeft, Loader2 } from "lucide-react"
 import { useParams } from "next/navigation"
+import { Skill, Card } from "@/lib/def"
 
 export default function SkillDetailPage() {
   const params = useParams()
-  const skill = SKILLS_DATA.find((s) => s.id === params.id)
+  const id = params.id as string
 
-  // LOGIC BARU: GABUNGAN OTOMATIS & MANUAL
+  // 1. STATE MANAGEMENT
+  const [skill, setSkill] = useState<Skill | null>(null)
+  const [allCards, setAllCards] = useState<Card[]>([])
+  const [isLoading, setIsLoading] = useState(true)
+
+  // 2. FETCH DATA (Paralel: Ambil Skill & Semua Kartu buat dicocokin)
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setIsLoading(true)
+        const [skillRes, cardsRes] = await Promise.all([
+            fetch(`/api/skills/${id}`),
+            fetch('/api/cards')
+        ])
+
+        if (skillRes.ok) {
+            const skillData = await skillRes.json()
+            setSkill(skillData)
+        }
+
+        if (cardsRes.ok) {
+            const cardsData = await cardsRes.json()
+            setAllCards(cardsData)
+        }
+
+      } catch (error) {
+        console.error("Error fetching data:", error)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+    if (id) fetchData()
+  }, [id])
+
+  // 3. LOGIC KARTU TERKAIT (Gabungan Otomatis & Manual)
   const mentionedCards = useMemo(() => {
-    if (!skill) return []
+    if (!skill || allCards.length === 0) return []
     
-    // 1. Cari kartu yang namanya disebut persis di deskripsi (Cara Lama)
-    const autoDetected = CARDS_DATA.filter(card => skill.description.includes(card.name))
+    // A. Cari kartu yang namanya disebut persis di deskripsi (Auto-detect)
+    const autoDetected = allCards.filter(card => skill.description.includes(card.name))
 
-    // 2. Cari kartu dari list manual 'relatedCards' (Cara Baru)
+    // B. Cari kartu dari list manual 'relatedCards' (Manual link by ID)
     const manuallyLinked = skill.relatedCards 
-      ? CARDS_DATA.filter(card => skill.relatedCards?.includes(card.id))
+      ? allCards.filter(card => skill.relatedCards?.includes(card.id))
       : []
 
-    // 3. Gabungin keduanya
+    // C. Gabungin keduanya
     const combined = [...autoDetected, ...manuallyLinked]
     
-    // 4. Hapus duplikat berdasarkan ID biar gak muncul double
-    // Menggunakan Map: key=id, value=card object. Map otomatis menimpa key yang sama.
+    // D. Hapus duplikat berdasarkan ID biar gak muncul double
     return Array.from(new Map(combined.map(card => [card.id, card])).values())
-  }, [skill])
+  }, [skill, allCards])
 
+  // 4. LOADING STATE
+  if (isLoading) {
+    return (
+      <main className="min-h-screen bg-background pb-24 pt-10 flex items-center justify-center">
+         <div className="flex flex-col items-center gap-4">
+            <Loader2 className="w-10 h-10 animate-spin text-yellow-500" />
+            <p className="text-muted-foreground">Identifying Skill...</p>
+         </div>
+         <Navigation />
+      </main>
+    )
+  }
+
+  // 5. NOT FOUND STATE
   if (!skill) {
     return (
-      <main className="min-h-screen flex items-center justify-center pb-24">
+      <main className="min-h-screen bg-background flex items-center justify-center pb-24">
         <div className="text-center">
           <h1 className="text-2xl font-bold mb-4">Skill not found</h1>
           <Link href="/skill">
             <Button>Back to Skills</Button>
           </Link>
         </div>
+        <Navigation />
       </main>
     )
   }
 
+  // Helper Variables untuk UI
   const isUniversal = skill.type === "Universal"
   const borderColor = isUniversal ? "border-blue-500/30" : "border-yellow-500/30"
   const glowColor = isUniversal ? "shadow-blue-500/20" : "shadow-yellow-500/20"
@@ -109,7 +158,7 @@ export default function SkillDetailPage() {
                                         <div className="aspect-[420/613] rounded overflow-hidden border border-white/10 group-hover:border-primary transition-all group-hover:scale-105 shadow-lg">
                                             <img 
                                                 src={card.image || "/card-back.jpg"} 
-                                                alt={card.name}
+                                                alt={card.name} 
                                                 className="w-full h-full object-cover"
                                             />
                                             <div className="absolute top-0 right-0 bg-black/80 text-[6px] px-1 text-accent font-bold">

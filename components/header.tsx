@@ -3,6 +3,7 @@
 import { useState, useEffect, Suspense } from "react"
 import { useRouter, useSearchParams, usePathname } from "next/navigation"
 import Link from "next/link"
+import Image from "next/image" // <--- IMPORT PENTING
 import { Search, Filter, X } from "lucide-react"
 
 // --- KOMPONEN ISI (LOGIC) ---
@@ -22,11 +23,13 @@ function HeaderContent() {
   }, [searchParams])
 
   const handleUpdateParams = (newSearch: string, newType: string) => {
+    // Jika user sedang tidak di halaman /cards, pindahkan ke sana
     if (pathname !== "/cards") {
       router.push(`/cards?q=${newSearch}&type=${newType}`)
       return
     }
     
+    // Jika sudah di /cards, replace URL saja agar history tidak numpuk
     router.replace(`/cards?q=${newSearch}&type=${newType}`)
   }
 
@@ -46,11 +49,18 @@ function HeaderContent() {
       <div className="max-w-6xl mx-auto px-4 py-3">
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           
+          {/* --- LOGO SECTION --- */}
           <Link href="/" className="flex-shrink-0 group">
-            <img 
+            {/* PERBAIKAN: Menggunakan Next.js Image dengan 'priority'.
+                Width & Height diset rasional, tapi class 'w-auto' menjaga aspek rasio.
+            */}
+            <Image 
               src="/YuGiOh_Duel_Links.png" 
               alt="Yu-Gi-Oh! Catalog" 
-              className="h-24 object-contain transition-transform group-hover:scale-110 drop-shadow-[0_0_10px_rgba(255,255,255,0.3)]"
+              width={200} // Estimasi lebar, CSS akan mengaturnya jadi auto
+              height={96} // 96px setara h-24
+              priority    // <--- SOLUSI MASALAH PRELOAD KAMU
+              className="h-24 w-auto object-contain transition-transform group-hover:scale-110 drop-shadow-[0_0_10px_rgba(255,255,255,0.3)]"
             />
           </Link>
 
@@ -61,6 +71,7 @@ function HeaderContent() {
             <div className="relative group">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground group-focus-within:text-primary transition-colors" />
               <input
+                suppressHydrationWarning 
                 type="text"
                 placeholder="Search cards..."
                 value={searchQuery}
@@ -69,6 +80,7 @@ function HeaderContent() {
               />
               {searchQuery && (
                 <button 
+                  suppressHydrationWarning
                   onClick={() => {setSearchQuery(""); handleUpdateParams("", selectedType)}}
                   className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-white"
                 >
@@ -77,6 +89,7 @@ function HeaderContent() {
               )}
             </div>
 
+            {/* Filter Buttons */}
             <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-hide">
               <div className="flex items-center gap-1 text-muted-foreground text-ms font-medium pr-2 border-r border-white/10 mr-2">
                 <Filter className="w-3 h-5" />
@@ -86,6 +99,7 @@ function HeaderContent() {
               {["all", "Monster", "Spell", "Trap"].map((type) => (
                 <button
                   key={type}
+                  suppressHydrationWarning
                   onClick={() => onTypeChange(type)}
                   className={`
                     px-4 py-1.5 rounded-full text-xs font-bold transition-all whitespace-nowrap border
@@ -107,9 +121,10 @@ function HeaderContent() {
   )
 }
 
+// --- MAIN EXPORT ---
 export function Header() {
   return (
-    <Suspense fallback={<div className="fixed top-0 left-0 right-0 z-50 h-24 bg-black/90">Loading...</div>}>
+    <Suspense fallback={<div className="fixed top-0 left-0 right-0 z-50 h-24 bg-black/90 border-b border-white/10" />}>
       <HeaderContent />
     </Suspense>
   )

@@ -1582,8 +1582,7 @@ const SKILLS_DATA = [
         relatedCards: [
             "1",
             "30",
-            "31",
-            "34"
+            "31"
         ]
     },
     {

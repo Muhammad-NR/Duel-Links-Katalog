@@ -1,19 +1,72 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import { Navigation } from "@/components/navigation"
 import { Button } from "@/components/ui/button"
-import { ChevronLeft, X, ExternalLink } from "lucide-react"
-import { CARDS_DATA, DECKS_DATA } from "@/lib/data"
+import { ChevronLeft, X, ExternalLink, Loader2 } from "lucide-react" // Tambah Loader2
 import { useParams } from "next/navigation"
+import { Card, Deck } from "@/lib/def" // Import Tipe Data
 
 export default function CardDetailPage() {
   const params = useParams()
-  const [isImageOpen, setIsImageOpen] = useState(false)
+  const id = params.id as string // Pastikan ID string
   
-  const card = CARDS_DATA.find((c) => c.id === params.id)
+  // 1. STATE BARU: Tampung data Card dan Deck dari API
+  const [card, setCard] = useState<Card | null>(null)
+  const [decks, setDecks] = useState<Deck[]>([]) // Butuh ini buat fitur "Usable in Decks"
+  const [isLoading, setIsLoading] = useState(true)
+  const [isImageOpen, setIsImageOpen] = useState(false)
 
+  // 2. FETCH DATA: Ambil detail kartu & data deck
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setIsLoading(true)
+        
+        // Jalanin 2 request sekaligus (Paralel) biar cepet
+        const [cardRes, decksRes] = await Promise.all([
+            fetch(`/api/cards/${id}`),
+            fetch(`/api/decks`)
+        ])
+
+        if (cardRes.ok) {
+            const cardData = await cardRes.json()
+            setCard(cardData)
+        }
+
+        if (decksRes.ok) {
+            const decksData = await decksRes.json()
+            setDecks(decksData)
+        }
+
+      } catch (error) {
+        console.error("Error fetching data:", error)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    if (id) {
+        fetchData()
+    }
+  }, [id])
+
+
+  // 3. LOADING STATE
+  if (isLoading) {
+    return (
+      <main className="min-h-screen bg-background flex items-center justify-center pb-24">
+        <div className="flex flex-col items-center gap-4">
+            <Loader2 className="w-10 h-10 animate-spin text-primary" />
+            <p className="text-muted-foreground">Summoning Card...</p>
+        </div>
+        <Navigation />
+      </main>
+    )
+  }
+
+  // 4. NOT FOUND STATE
   if (!card) {
     return (
       <main className="min-h-screen bg-background flex items-center justify-center pb-24">
@@ -23,6 +76,7 @@ export default function CardDetailPage() {
             <Button>Back to Cards</Button>
           </Link>
         </div>
+        <Navigation />
       </main>
     )
   }
@@ -37,6 +91,7 @@ export default function CardDetailPage() {
           <span>Back to Cards</span>
         </Link>
 
+        {/* IMAGE SECTION */}
         <div className="bg-card border border-border rounded-xl overflow-hidden mb-8 max-w-[420px] mx-auto shadow-2xl">
           <div 
             className="aspect-[420/613] bg-black flex items-center justify-center cursor-zoom-in relative group"
@@ -54,6 +109,7 @@ export default function CardDetailPage() {
           </div>
         </div>
 
+        {/* DETAILS SECTION */}
         <div className="space-y-6">
           <div>
             <h1 className="text-4xl font-bold mb-2">{card.name}</h1>
@@ -109,11 +165,13 @@ export default function CardDetailPage() {
               </div>
             </div>
 
+            {/* USABLE IN DECKS (UPDATED LOGIC) */}
             <div>
               <h3 className="text-sm font-semibold text-muted-foreground mb-3">Usable in Decks</h3>
               <div className="flex gap-2 flex-wrap">
                 {card.deckTypes?.map((deckName) => {
-                  const linkedDeck = DECKS_DATA.find((d) => d.name === deckName)
+                  // Kita cari di state 'decks' yang didapat dari API, bukan import file
+                  const linkedDeck = decks.find((d) => d.name === deckName)
 
                   if (linkedDeck) {
                     return (

@@ -1,24 +1,61 @@
 "use client"
 
-import { useMemo, Suspense } from "react"
+import { useMemo, Suspense, useState, useEffect } from "react"
 import Link from "next/link"
 import { Navigation } from "@/components/navigation"
-import { SKILLS_DATA } from "@/lib/data"
 import { useSearchParams } from "next/navigation"
+import { Skill } from "@/lib/def" // Import Type
+import { Loader2 } from "lucide-react"
 
 function SkillListContent() {
   const searchParams = useSearchParams()
   const search = searchParams.get("q") || ""
-  
+
+  // 1. STATE FOR API DATA
+  const [skills, setSkills] = useState<Skill[]>([])
+  const [isLoading, setIsLoading] = useState(true)
+
+  // 2. FETCH API
+  useEffect(() => {
+    const fetchSkills = async () => {
+      try {
+        const res = await fetch('/api/skills')
+        if (res.ok) {
+          const data = await res.json()
+          setSkills(data)
+        }
+      } catch (error) {
+        console.error("Error fetching skills:", error)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+    fetchSkills()
+  }, [])
+
+  // 3. FILTER LOGIC (Updated to use 'skills' state)
   const filteredSkills = useMemo(() => {
-    return SKILLS_DATA.filter((skill) => {
+    return skills.filter((skill) => {
       return (
         skill.name.toLowerCase().includes(search.toLowerCase()) ||
         skill.description.toLowerCase().includes(search.toLowerCase()) ||
         (skill.character && skill.character.toLowerCase().includes(search.toLowerCase()))
       )
     })
-  }, [search])
+  }, [search, skills]) // Add skills to dependency
+
+  // 4. LOADING STATE
+  if (isLoading) {
+    return (
+      <main className="min-h-screen bg-background pb-24 pt-10 flex items-center justify-center">
+         <div className="flex flex-col items-center gap-4">
+            <Loader2 className="w-10 h-10 animate-spin text-yellow-500" />
+            <p className="text-muted-foreground">Loading Skills...</p>
+         </div>
+         <Navigation />
+      </main>
+    )
+  }
 
   return (
       <main className="min-h-screen bg-background pb-24 pt-10">

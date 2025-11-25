@@ -1,16 +1,91 @@
 "use client"
 
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import { Navigation } from "@/components/navigation"
 import { Button } from "@/components/ui/button"
-import { ChevronLeft } from "lucide-react"
-import { DECKS_DATA, CARDS_DATA, SKILLS_DATA } from "@/lib/data"
+import { ChevronLeft, Loader2 } from "lucide-react"
 import { useParams } from "next/navigation"
+import { Deck, Card, Skill } from "@/lib/def" // Import tipe data
 
 export default function DeckDetailPage() {
   const params = useParams()
-  const deck = DECKS_DATA.find((d) => d.id === params.id)
+  const id = params.id as string
 
+  // 1. STATE MANAGEMENT
+  const [deck, setDeck] = useState<Deck | null>(null)
+  const [allCards, setAllCards] = useState<Card[]>([])
+  const [allSkills, setAllSkills] = useState<Skill[]>([])
+  const [isLoading, setIsLoading] = useState(true)
+
+  // 2. FETCHING DATA (Paralel 3 API sekaligus biar ngebut)
+  useEffect(() => {
+    const fetchAllData = async () => {
+      try {
+        setIsLoading(true)
+        
+        // Jalanin 3 request berbarengan
+        const [deckRes, cardsRes, skillsRes] = await Promise.all([
+          fetch(`/api/decks/${id}`),
+          fetch('/api/cards'),
+          fetch('/api/skills')
+        ])
+
+        if (deckRes.ok) {
+          const deckData = await deckRes.json()
+          setDeck(deckData)
+        }
+        
+        if (cardsRes.ok) {
+          const cardsData = await cardsRes.json()
+          setAllCards(cardsData)
+        }
+
+        if (skillsRes.ok) {
+          const skillsData = await skillsRes.json()
+          setAllSkills(skillsData)
+        }
+
+      } catch (error) {
+        console.error("Error fetching data:", error)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    if (id) fetchAllData()
+  }, [id])
+
+  // 3. Helper buat cari data kartu dari array API (Pengganti import static)
+  const getCardByName = (name: string) => {
+    return allCards.find((c) => c.name === name)
+  }
+
+  // 4. Helper buat cari skill
+  const skillData = deck ? allSkills.find((s) => s.name === deck.skill) : null
+  const skillImageSrc = deck?.skillType === "Universal" ? "/Skill_Uni.png" : "/Skill.png"
+
+  const tierColors = {
+    S: "bg-red-500/20 text-red-400 border-red-500/50",
+    A: "bg-orange-500/20 text-orange-400 border-orange-500/50",
+    B: "bg-yellow-500/20 text-yellow-400 border-yellow-500/50",
+    C: "bg-blue-500/20 text-blue-400 border-blue-500/50",
+  }
+
+  // 5. LOADING UI
+  if (isLoading) {
+    return (
+      <main className="min-h-screen bg-background pb-24 pt-10 flex items-center justify-center">
+         <div className="flex flex-col items-center gap-4">
+            <Loader2 className="w-10 h-10 animate-spin text-primary" />
+            <p className="text-muted-foreground">Analysing Deck Strategy...</p>
+         </div>
+         <Navigation />
+      </main>
+    )
+  }
+
+  // 6. NOT FOUND UI
   if (!deck) {
     return (
       <main className="min-h-screen bg-background flex items-center justify-center pb-24">
@@ -20,24 +95,12 @@ export default function DeckDetailPage() {
             <Button>Back to Decks</Button>
           </Link>
         </div>
+        <Navigation />
       </main>
     )
   }
 
-  const getCardByName = (name: string) => {
-    return CARDS_DATA.find((c) => c.name === name)
-  }
-
-  const skillData = SKILLS_DATA.find((s) => s.name === deck.skill)
-  const skillImageSrc = deck.skillType === "Universal" ? "/Skill_Uni.png" : "/Skill.png"
-
-  const tierColors = {
-    S: "bg-red-500/20 text-red-400 border-red-500/50",
-    A: "bg-orange-500/20 text-orange-400 border-orange-500/50",
-    B: "bg-yellow-500/20 text-yellow-400 border-yellow-500/50",
-    C: "bg-blue-500/20 text-blue-400 border-blue-500/50",
-  }
-
+  // 7. MAIN UI (Sama persis kayak punya lu sebelumnya)
   return (
       <main className="min-h-screen bg-background pb-24 pt-6">
         <div className="max-w-5xl mx-auto p-4">
@@ -80,6 +143,7 @@ export default function DeckDetailPage() {
           </p>
         </div>
 
+        {/* SKILL SECTION */}
         {deck.skill && (
             skillData ? (
               <Link href={`/skill/${skillData.id}`}>
@@ -114,6 +178,7 @@ export default function DeckDetailPage() {
             )
         )}
 
+        {/* MAIN DECK VISUALIZER */}
         <div className="bg-card border border-border rounded-xl overflow-hidden mb-8">
           <div className="bg-secondary/20 px-6 py-4 border-b border-border flex justify-between items-center">
             <h2 className="text-xl font-bold flex items-center gap-2">
@@ -138,6 +203,7 @@ export default function DeckDetailPage() {
           </div>
         </div>
 
+        {/* EXTRA DECK VISUALIZER */}
         {deck.extraCards && deck.extraCards.length > 0 && (
           <div className="bg-card border border-border rounded-xl overflow-hidden mb-8">
             <div className="bg-secondary/20 px-6 py-4 border-b border-border">
@@ -164,6 +230,7 @@ export default function DeckDetailPage() {
           </div>
         )}
 
+        {/* STRATEGY GUIDE */}
         {deck.strategy && (
           <div className="bg-card border border-border rounded-xl p-8 mb-8 shadow-lg">
             <h2 className="text-2xl font-bold mb-6 text-red-500 border-b border-white/10 pb-4">Strategy Guide</h2>

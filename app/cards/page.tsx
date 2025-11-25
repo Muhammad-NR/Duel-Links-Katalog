@@ -1,12 +1,12 @@
 "use client"
 
-import { useMemo, Suspense } from "react"
+import { useMemo, Suspense, useState, useEffect } from "react"
 import Link from "next/link"
 import { Navigation } from "@/components/navigation"
 import { Button } from "@/components/ui/button"
-import { ChevronLeft, ChevronRight } from "lucide-react"
-import { CARDS_DATA } from "@/lib/data"
+import { ChevronLeft, ChevronRight, Loader2 } from "lucide-react" // Tambah icon Loader2
 import { useSearchParams, useRouter } from "next/navigation"
+import { Card } from "@/lib/def" // Pastikan import tipe data Card
 
 const CARDS_PER_PAGE = 9
 
@@ -14,13 +14,40 @@ function CardsContent() {
   const searchParams = useSearchParams()
   const router = useRouter()
 
+  // 1. STATE BARU: Untuk nampung data dari API
+  const [cardsData, setCardsData] = useState<Card[]>([])
+  const [isLoading, setIsLoading] = useState(true)
+
+  // 2. FETCH DATA: Ambil dari API saat komponen di-load
+  useEffect(() => {
+      const fetchCards = async () => {
+        try {
+          const res = await fetch('/api/cards')
+          if (!res.ok) throw new Error("Gagal mengambil data")
+          
+          const data = await res.json()
+          
+          console.log("DATA DARI API:", data) // <--- TAMBAHIN INI
+          console.log("JUMLAH DATA:", data.length) // <--- TAMBAHIN INI
+          
+          setCardsData(data)
+        } catch (error) {
+          console.error("Error fetching cards:", error)
+        } finally {
+          setIsLoading(false)
+        }
+      }
+      fetchCards()
+    }, [])
+
   const search = searchParams.get("q") || ""
   const typeFilter = searchParams.get("type") || "all"
   const pageParam = searchParams.get("page")
   const currentPage = pageParam ? parseInt(pageParam) : 1
 
+  // 3. UPDATE FILTER: Gunakan 'cardsData' (state), bukan 'CARDS_DATA' (file)
   const filteredCards = useMemo(() => {
-    return CARDS_DATA.filter((card) => {
+    return cardsData.filter((card) => {
       const matchesSearch =
         card.name.toLowerCase().includes(search.toLowerCase()) ||
         card.description.toLowerCase().includes(search.toLowerCase())
@@ -29,7 +56,7 @@ function CardsContent() {
       
       return matchesSearch && matchesType
     })
-  }, [search, typeFilter])
+  }, [search, typeFilter, cardsData]) // Tambahkan cardsData ke dependency
 
   const totalPages = Math.ceil(filteredCards.length / CARDS_PER_PAGE)
   const startIndex = (currentPage - 1) * CARDS_PER_PAGE
@@ -45,6 +72,19 @@ function CardsContent() {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
+  // 4. LOADING STATE: Tampilkan loading sebelum data muncul
+  if (isLoading) {
+    return (
+      <main className="min-h-screen bg-background pb-24 pt-10 flex items-center justify-center">
+        <div className="flex flex-col items-center gap-4">
+            <Loader2 className="w-10 h-10 animate-spin text-primary" />
+            <p className="text-muted-foreground">Mengambil data kartu...</p>
+        </div>
+        <Navigation />
+      </main>
+    )
+  }
+
   return (
       <main className="min-h-screen bg-background pb-24 pt-10">
         <div className="max-w-5xl mx-auto p-4 space-y-6">
@@ -57,6 +97,7 @@ function CardsContent() {
             </span>
         </div>
 
+        {/* LIST KARTU */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
           {paginatedCards.map((card) => (
             <Link key={card.id} href={`/cards/${card.id}`}>
@@ -93,6 +134,7 @@ function CardsContent() {
           ))}
         </div>
 
+        {/* EMPTY STATE */}
         {paginatedCards.length === 0 && (
           <div className="text-center py-20 border border-dashed border-white/20 rounded-xl bg-secondary/5">
             <p className="text-xl font-bold text-muted-foreground mb-2">No cards found</p>
@@ -100,37 +142,30 @@ function CardsContent() {
           </div>
         )}
 
+        {/* PAGINATION */}
         {totalPages > 1 && (
           <div className="flex items-center justify-center gap-2 mt-8">
-            {/* Tombol PREVIOUS */}
             <Button
               variant="outline"
               onClick={() => handlePageChange(currentPage - 1)}
               disabled={currentPage === 1}
-              className="flex items-center gap-1 px-3" // Nin, aku kecilin padding dikit biar muat
+              className="flex items-center gap-1 px-3"
             >
               <ChevronLeft className="w-4 h-4" />
-              <span className="hidden sm:inline">Prev</span> {/* Text 'Prev' sembunyi di HP biar hemat tempat */}
+              <span className="hidden sm:inline">Prev</span>
             </Button>
 
-            {/* LOGIKA NOMOR HALAMAN (MAX 3) */}
             <div className="flex items-center gap-1">
               {Array.from({ length: Math.min(3, totalPages) }).map((_, i) => {
                 let pageNum: number
                 
-                // Logika matematika untuk geser angka (Window of 3)
                 if (totalPages <= 3) {
-                  // Kalau total halaman cuma dikit (kurang dari 3), urutin aja 1, 2, 3
                   pageNum = i + 1
                 } else if (currentPage <= 2) {
-                  // Kalau lagi di halaman awal (1 atau 2), tetep tampilin 1, 2, 3
                   pageNum = i + 1
                 } else if (currentPage >= totalPages - 1) {
-                  // Kalau lagi di halaman akhir, tampilin 3 angka terakhir
                   pageNum = totalPages - 2 + i
                 } else {
-                  // Kalau di tengah-tengah, posisikan current page di tengah (i=1)
-                  // Contoh current 5: jadi 4, 5, 6
                   pageNum = currentPage - 1 + i
                 }
 
@@ -139,7 +174,7 @@ function CardsContent() {
                     key={pageNum}
                     variant={currentPage === pageNum ? "default" : "outline"}
                     onClick={() => handlePageChange(pageNum)}
-                    className="w-9 h-9 p-0 font-bold text-sm" // Ukuran tombol aku kecilin dikit (w-9)
+                    className="w-9 h-9 p-0 font-bold text-sm"
                   >
                     {pageNum}
                   </Button>
@@ -147,7 +182,6 @@ function CardsContent() {
               })}
             </div>
 
-            {/* Tombol NEXT */}
             <Button
               variant="outline"
               onClick={() => handlePageChange(currentPage + 1)}
@@ -168,7 +202,7 @@ function CardsContent() {
 
 export default function CardsPage() {
   return (
-    <Suspense fallback={<div className="p-10 text-center">Loading cards...</div>}>
+    <Suspense fallback={<div className="p-10 text-center">Loading page...</div>}>
       <CardsContent />
     </Suspense>
   )

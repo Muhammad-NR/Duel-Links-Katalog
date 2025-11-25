@@ -92,6 +92,7 @@ function HeaderContent() {
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                        suppressHydrationWarning: true,
                                         type: "text",
                                         placeholder: "Search cards...",
                                         value: searchQuery,
@@ -103,6 +104,7 @@ function HeaderContent() {
                                         columnNumber: 15
                                     }, this),
                                     searchQuery && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                        suppressHydrationWarning: true,
                                         onClick: ()=>{
                                             setSearchQuery("");
                                             handleUpdateParams("", selectedType);
@@ -112,12 +114,12 @@ function HeaderContent() {
                                             className: "w-4 h-4"
                                         }, void 0, false, {
                                             fileName: "[project]/components/header.tsx",
-                                            lineNumber: 75,
+                                            lineNumber: 77,
                                             columnNumber: 19
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/components/header.tsx",
-                                        lineNumber: 71,
+                                        lineNumber: 72,
                                         columnNumber: 17
                                     }, this)
                                 ]
@@ -136,20 +138,20 @@ function HeaderContent() {
                                                 className: "w-3 h-5"
                                             }, void 0, false, {
                                                 fileName: "[project]/components/header.tsx",
-                                                lineNumber: 82,
+                                                lineNumber: 84,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                 children: "Filter"
                                             }, void 0, false, {
                                                 fileName: "[project]/components/header.tsx",
-                                                lineNumber: 83,
+                                                lineNumber: 85,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/components/header.tsx",
-                                        lineNumber: 81,
+                                        lineNumber: 83,
                                         columnNumber: 15
                                     }, this),
                                     [
@@ -158,6 +160,7 @@ function HeaderContent() {
                                         "Spell",
                                         "Trap"
                                     ].map((type)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                            suppressHydrationWarning: true,
                                             onClick: ()=>onTypeChange(type),
                                             className: `
                     px-4 py-1.5 rounded-full text-xs font-bold transition-all whitespace-nowrap border
@@ -166,13 +169,13 @@ function HeaderContent() {
                                             children: type === "all" ? "All Cards" : type
                                         }, type, false, {
                                             fileName: "[project]/components/header.tsx",
-                                            lineNumber: 87,
+                                            lineNumber: 89,
                                             columnNumber: 17
                                         }, this))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/components/header.tsx",
-                                lineNumber: 80,
+                                lineNumber: 82,
                                 columnNumber: 13
                             }, this)
                         ]
@@ -213,17 +216,17 @@ function Header() {
             children: "Loading..."
         }, void 0, false, {
             fileName: "[project]/components/header.tsx",
-            lineNumber: 112,
+            lineNumber: 115,
             columnNumber: 25
         }, void 0),
         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(HeaderContent, {}, void 0, false, {
             fileName: "[project]/components/header.tsx",
-            lineNumber: 113,
+            lineNumber: 116,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/components/header.tsx",
-        lineNumber: 112,
+        lineNumber: 115,
         columnNumber: 5
     }, this);
 }

@@ -7,14 +7,12 @@ import { Button } from "@/components/ui/button"
 import { ArrowRight, Loader2, Star, Trophy } from "lucide-react"
 import { Card, Deck } from "@/lib/def"
 
-// Definisikan tipe data untuk konfigurasi yang akan diambil dari API
 interface HomeConfig {
     featuredCardIds?: number[];
     metaTargetTiers?: string[];
-    featuredDeckIds?: string[]; // BARU: Untuk ID Deck Spesifik
+    featuredDeckIds?: string[]; 
 }
 
-// Helper function untuk mengacak array (digunakan sebagai fallback)
 const shuffleArray = <T,>(array: T[]): T[] => {
     return array.sort(() => 0.5 - Math.random());
 };
@@ -40,7 +38,6 @@ export default function Home() {
                 const decksData: Deck[] = decksRes.ok ? await decksRes.json() : []
                 const configData: HomeConfig = configRes.ok ? await configRes.json() : {};
 
-                // --- LOGIKA POPULAR CARDS (Berdasarkan Config/Random) ---
                 if (cardsRes.ok) {
                     const configuredIds: number[] = configData.featuredCardIds || [];
                     let featured: Card[] = [];
@@ -55,13 +52,11 @@ export default function Home() {
                     setFeaturedCards(featured);
                 }
 
-                // --- LOGIKA TOP META DECKS (KOREKSI LOGIKA PRIORITAS DECK) ---
                 if (decksRes.ok) {
                     const configuredDeckIds: string[] = configData.featuredDeckIds || []; 
                     let topMeta: Deck[] = [];
 
                     if (configuredDeckIds.length > 0) {
-                        // PRIORITAS 1: Ambil Deck berdasarkan ID spesifik (Mempertahankan urutan ID)
                         topMeta = configuredDeckIds
                             .map(id => decksData.find(d => d.id === id)) 
                             .filter((d): d is Deck => d !== undefined) 

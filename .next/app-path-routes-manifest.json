@@ -1,0 +1,21 @@
+{
+  "/_global-error/page": "/_global-error",
+  "/_not-found/page": "/_not-found",
+  "/about/page": "/about",
+  "/api/cards/[id]/route": "/api/cards/[id]",
+  "/api/cards/route": "/api/cards",
+  "/api/config/route": "/api/config",
+  "/api/decks/[id]/route": "/api/decks/[id]",
+  "/api/decks/route": "/api/decks",
+  "/api/skills/[id]/route": "/api/skills/[id]",
+  "/api/skills/route": "/api/skills",
+  "/cards/[id]/page": "/cards/[id]",
+  "/cards/page": "/cards",
+  "/decks/[id]/page": "/decks/[id]",
+  "/decks/page": "/decks",
+  "/manifest.webmanifest/route": "/manifest.webmanifest",
+  "/page": "/",
+  "/skill/[id]/page": "/skill/[id]",
+  "/skill/page": "/skill",
+  "/upload/page": "/upload"
+}

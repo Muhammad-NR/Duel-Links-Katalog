@@ -327,7 +327,7 @@ const MONSTER_CARDS = [
             "Blue-Eyes",
             "Despia"
         ],
-        image: "/cards/extra_deck/Dingirsu, the Orcust of the Evening Star.webp"
+        image: "/cards/extra_deck/Dingirsu the Orcust of the Evening Star.webp"
     },
     {
         id: "15",
@@ -1117,7 +1117,7 @@ const SPELL_CARDS = [
         deckTypes: [
             "Blue-Eyes"
         ],
-        image: "/cards/spells/Bingo Machine, Go!!!.webp"
+        image: "/cards/spells/Bingo Machine Go.webp"
     },
     {
         id: "66",
@@ -1198,7 +1198,7 @@ const SPELL_CARDS = [
         deckTypes: [
             "Despia"
         ],
-        image: "/cards/spells/Despia, Theater of the Branded.webp"
+        image: "/cards/spells/Despia Theater of the Branded.webp"
     },
     {
         id: "72",

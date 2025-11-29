@@ -231,7 +231,7 @@ export const MONSTER_CARDS: Card[] = [
     level: 8,
     attribute: "Dark",
     deckTypes: ["Blue-Eyes", "Despia"],
-    image: "/cards/extra_deck/Dingirsu, the Orcust of the Evening Star.webp",
+    image: "/cards/extra_deck/Dingirsu the Orcust of the Evening Star.webp",
   },
   {  
     id: "15",

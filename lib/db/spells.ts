@@ -59,7 +59,7 @@ export const SPELL_CARDS: Card[] = [
     \n● Spell/Trap that specifically lists the card "Blue-Eyes White Dragon" or "Blue-Eyes Ultimate Dragon", except "Bingo Machine, Go!!!"`,
     attribute: "Spell Card",
     deckTypes: ["Blue-Eyes"],
-    image: "/cards/spells/Bingo Machine, Go!!!.webp",
+    image: "/cards/spells/Bingo Machine Go.webp",
   },
   {
     id: "66",
@@ -127,7 +127,7 @@ export const SPELL_CARDS: Card[] = [
     \nYou can only use each effect of "Despia, Theater of the Branded" once per turn.`,
     attribute: "Field Spell",
     deckTypes: ["Despia"],
-    image: "/cards/spells/Despia, Theater of the Branded.webp",
+    image: "/cards/spells/Despia Theater of the Branded.webp",
   },
   {
     id: "72",
